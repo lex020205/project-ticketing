@@ -31,8 +31,18 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Redirect based on user role
             $user = Auth::user();
+            if ($user->status_user === 'nonaktif') {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                return back()->withErrors([
+                    'email' => 'Akun Anda sedang nonaktif. Silakan hubungi SPV.',
+                ])->onlyInput('email');
+            }
+
+            // Redirect based on user role
             $roleName = $user->role?->nama_role;
 
             switch ($roleName) {
