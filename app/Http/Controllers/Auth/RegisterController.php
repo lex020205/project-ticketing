@@ -38,7 +38,8 @@ class RegisterController extends Controller
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'role_id' => $teknisiRole?->id,
-            'status_user' => 'active',
+            'nomor_telepon' => '',
+            'status_user' => 'aktif',
         ]);
 
         Auth::login($user);

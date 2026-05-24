@@ -3,134 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login - Sistem Ticketing Laboran</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            padding: 2rem;
+        }
+
+        .login-box {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .login-header .system-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .login-header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            font-size: 0.95rem;
+            opacity: 0.95;
             margin: 0;
         }
-        .container {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
+
+        .login-body {
+            padding: 2.5rem 2rem;
         }
-        h1 {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #333;
-        }
+
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
-        label {
+
+        .form-label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #555;
-            font-weight: bold;
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 0.95rem;
         }
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
+
+        .form-control {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-check {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-check-input {
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+        }
+
+        .form-check-input:checked {
+            background-color: #667eea;
+            border-color: #667eea;
+        }
+
+        .form-check-label {
+            color: #475569;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+
+        .btn-login {
             width: 100%;
             padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 1rem;
-        }
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            outline: none;
-            border-color: #4CAF50;
-            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-        }
-        button {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: #4CAF50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            border-radius: 0.5rem;
+            font-weight: 600;
             font-size: 1rem;
-            font-weight: bold;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
-        button:hover {
-            background-color: #45a049;
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
         }
-        .error {
-            color: #d32f2f;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
+
+        .btn-login:active {
+            transform: translateY(0);
         }
-        .link {
+
+        .login-footer {
             text-align: center;
-            margin-top: 1rem;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #e2e8f0;
+            background-color: #f8fafc;
         }
-        .link a {
-            color: #4CAF50;
+
+        .login-footer p {
+            margin: 0;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .login-footer a {
+            color: #667eea;
             text-decoration: none;
+            font-weight: 600;
+            margin-left: 0.3rem;
         }
-        .link a:hover {
+
+        .login-footer a:hover {
             text-decoration: underline;
         }
+
         .alert {
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border-radius: 4px;
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            border-radius: 0.5rem;
+            border: 2px solid #fecaca;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-danger {
+            background-color: #fef2f2;
+            color: #991b1b;
+        }
+
+        .invalid-feedback {
+            display: block;
+            margin-top: 0.25rem;
+            font-size: 0.85rem;
+            color: #dc2626;
+        }
+
+        .form-control.is-invalid {
+            border-color: #dc2626;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Login</h1>
-
-        @if ($errors->any())
-            <div class="alert">
-                @foreach ($errors->all() as $error)
-                    <div>{{ $error }}</div>
-                @endforeach
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus>
-                @error('email')
-                    <div class="error">{{ $message }}</div>
-                @enderror
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <div class="system-icon">
+                    <i class="bi bi-ticket-detailed"></i>
+                </div>
+                <h1>Sistem Ticketing Laboran</h1>
+                <p>Kelola keluhan, ticket, dan maintenance laboran</p>
             </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-                @error('password')
-                    <div class="error">{{ $message }}</div>
-                @enderror
+            <div class="login-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Login Gagal!</strong>
+                        @foreach ($errors->all() as $error)
+                            <div>{{ $error }}</div>
+                        @endforeach
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('login.submit') }}" novalidate>
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input
+                            type="email"
+                            class="form-control @error('email') is-invalid @enderror"
+                            id="email"
+                            name="email"
+                            placeholder="nama@example.com"
+                            value="{{ old('email') }}"
+                            required
+                        >
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input
+                            type="password"
+                            class="form-control @error('password') is-invalid @enderror"
+                            id="password"
+                            name="password"
+                            placeholder="Masukkan password"
+                            required
+                        >
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-check">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="remember"
+                            name="remember"
+                            {{ old('remember') ? 'checked' : '' }}
+                        >
+                        <label class="form-check-label" for="remember">
+                            Ingat saya
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-login">Login</button>
+                </form>
             </div>
 
-            <button type="submit">Login</button>
-
-            <div class="link">
-                Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a>
+            <div class="login-footer">
+                <p>
+                    Belum punya akun?
+                    <a href="{{ route('register') }}">Daftar di sini</a>
+                </p>
             </div>
-        </form>
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
