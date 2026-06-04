@@ -1,3 +1,5 @@
+{{-- Modul 14 - Finalisasi Dashboard Statistik per Role --}}
+{{-- Ringkas: dashboard statistik admin. --}}
 @extends('layouts.app')
 
 @section('title', 'Dashboard Admin - Sistem Ticketing Laboran')
@@ -32,23 +34,6 @@
     <div class="mb-4">
         <h1 class="fw-bold mb-2">Dashboard Admin</h1>
         <p class="text-muted">Kelola keluhan masuk, ticket, dan verifikasi pekerjaan.</p>
-    </div>
-
-    <div class="card shadow-sm mb-4">
-        <div class="card-body d-flex flex-wrap gap-2">
-            <a href="{{ route('admin.keluhan.create') }}" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i> Tambah Keluhan
-            </a>
-            <a href="{{ route('admin.keluhan.index') }}" class="btn btn-outline-primary">
-                <i class="bi bi-chat-left-text"></i> Lihat Keluhan
-            </a>
-            <a href="{{ route('admin.tickets.index') }}" class="btn btn-outline-secondary">
-                <i class="bi bi-ticket"></i> Lihat Ticket
-            </a>
-            <a href="{{ route('admin.verifikasi.index') }}" class="btn btn-outline-success">
-                <i class="bi bi-check-circle"></i> Verifikasi Ticket
-            </a>
-        </div>
     </div>
 
     <div class="row g-4 mb-4">

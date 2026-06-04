@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+// Modul 1 - Auth, Role Access, dan Dashboard Awal
+// Ringkas: pembatasan akses berdasarkan role.
 class CheckRole
 {
     /**

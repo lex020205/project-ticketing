@@ -1,5 +1,8 @@
 <?php
 
+// Modul 2 - Admin Keluhan
+// Ringkas: data keluhan yang menjadi dasar ticket.
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

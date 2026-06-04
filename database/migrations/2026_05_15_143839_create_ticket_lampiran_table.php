@@ -1,5 +1,8 @@
 <?php
 
+// Modul 5 - Teknisi Upload Bukti Pengerjaan
+// Ringkas: tabel lampiran ticket.
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

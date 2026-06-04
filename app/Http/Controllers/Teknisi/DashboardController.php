@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Ticket;
 use App\Models\TicketProgress;
 
+// Modul 14 - Finalisasi Dashboard Statistik per Role
+// Ringkas: ringkasan statistik dashboard teknisi.
 class DashboardController extends Controller
 {
     public function index()

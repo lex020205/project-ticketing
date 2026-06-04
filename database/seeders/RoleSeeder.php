@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Role;
 
+// Modul 15 - Testing, Quality Check, dan Demo Data
+// Ringkas: data demo role dasar.
 class RoleSeeder extends Seeder
 {
     public function run(): void

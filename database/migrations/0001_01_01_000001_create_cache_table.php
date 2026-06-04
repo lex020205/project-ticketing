@@ -1,5 +1,8 @@
 <?php
 
+// Modul 15 - Testing, Quality Check, dan Demo Data
+// Ringkas: tabel cache bawaan Laravel untuk kebutuhan sistem.
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

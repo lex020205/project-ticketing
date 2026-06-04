@@ -1,5 +1,8 @@
 <?php
 
+// Modul 3-11 - Siklus Ticket (Admin, Teknisi, SPV)
+// Ringkas: data inti ticket dan relasi prosesnya.
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

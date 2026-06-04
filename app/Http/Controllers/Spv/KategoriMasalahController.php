@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\KategoriMasalah;
 use Illuminate\Http\Request;
 
+// Modul 13 - SPV Kategori Masalah
+// Ringkas: CRUD kategori masalah dan status aktif/nonaktif.
 class KategoriMasalahController extends Controller
 {
     public function index(Request $request)

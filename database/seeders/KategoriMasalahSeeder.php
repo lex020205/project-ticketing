@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\KategoriMasalah;
 
+// Modul 15 - Testing, Quality Check, dan Demo Data
+// Ringkas: data demo kategori masalah.
 class KategoriMasalahSeeder extends Seeder
 {
     public function run(): void

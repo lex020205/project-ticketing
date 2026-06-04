@@ -1,3 +1,5 @@
+{{-- Modul 1 - Auth, Role Access, dan Dashboard Awal --}}
+{{-- Ringkas: halaman registrasi user baru. --}}
 <!DOCTYPE html>
 <html lang="id">
 <head>

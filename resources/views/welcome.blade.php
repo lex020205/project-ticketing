@@ -1,3 +1,5 @@
+{{-- Modul 1 - Auth, Role Access, dan Dashboard Awal --}}
+{{-- Ringkas: halaman landing awal. --}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>

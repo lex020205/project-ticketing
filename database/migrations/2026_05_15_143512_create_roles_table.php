@@ -1,5 +1,8 @@
 <?php
 
+// Modul 1 - Auth, Role Access, dan Dashboard Awal
+// Ringkas: tabel master role akses.
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

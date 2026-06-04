@@ -1,3 +1,5 @@
+{{-- Modul 12 - SPV User Management --}}
+{{-- Ringkas: detail user. --}}
 @extends('layouts.app')
 
 @section('title', 'Detail User - SPV')

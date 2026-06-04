@@ -1,3 +1,5 @@
+<!-- Modul 15 - Testing, Quality Check, dan Demo Data -->
+<!-- Ringkas: checklist pengujian fitur utama. -->
 # Testing Checklist
 
 ## 1. Auth dan Role

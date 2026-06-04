@@ -1,5 +1,8 @@
 <?php
 
+// Modul 1/12 - Auth, Role Access, dan User Management
+// Ringkas: data akun user, relasi role, dan status.
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;

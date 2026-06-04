@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// Modul 1 - Auth, Role Access, dan Dashboard Awal
+// Ringkas: redirect dashboard sesuai role user.
 class DashboardController extends Controller
 {
     /**

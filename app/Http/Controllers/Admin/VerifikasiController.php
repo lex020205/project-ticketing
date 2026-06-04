@@ -9,6 +9,8 @@ use App\Models\TicketVerifikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+// Modul 8 - Admin/SPV Verifikasi Ticket Selesai
+// Ringkas: verifikasi ticket selesai oleh admin.
 class VerifikasiController extends Controller
 {
     public function index()

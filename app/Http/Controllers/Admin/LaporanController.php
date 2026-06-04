@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
+// Modul 11 - Laporan Admin dan SPV
+// Ringkas: filter dan rekap laporan ticket admin.
 class LaporanController extends Controller
 {
     public function index(Request $request)

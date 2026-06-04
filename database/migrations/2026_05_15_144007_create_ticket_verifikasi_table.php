@@ -1,5 +1,8 @@
 <?php
 
+// Modul 8 - Admin/SPV Verifikasi Ticket Selesai
+// Ringkas: tabel hasil verifikasi ticket.
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

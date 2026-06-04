@@ -1,3 +1,5 @@
+{{-- Modul 14 - Finalisasi Dashboard Statistik per Role --}}
+{{-- Ringkas: dashboard statistik SPV. --}}
 @extends('layouts.app')
 
 @section('title', 'Dashboard SPV - Sistem Ticketing Laboran')
@@ -38,29 +40,6 @@
     <div class="mb-4">
         <h1 class="fw-bold mb-2">Dashboard SPV</h1>
         <p class="text-muted">Monitoring ticket, eskalasi, user, dan laporan sistem.</p>
-    </div>
-
-    <div class="card shadow-sm mb-4">
-        <div class="card-body d-flex flex-wrap gap-2">
-            <a href="{{ route('spv.tickets.index') }}" class="btn btn-primary">
-                <i class="bi bi-graph-up"></i> Monitoring Ticket
-            </a>
-            <a href="{{ route('spv.eskalasi.index') }}" class="btn btn-outline-warning">
-                <i class="bi bi-exclamation-triangle"></i> Eskalasi
-            </a>
-            <a href="{{ route('spv.verifikasi.index') }}" class="btn btn-outline-success">
-                <i class="bi bi-check-circle"></i> Verifikasi
-            </a>
-            <a href="{{ route('spv.laporan.index') }}" class="btn btn-outline-secondary">
-                <i class="bi bi-file-earmark-text"></i> Laporan
-            </a>
-            <a href="{{ route('spv.users.index') }}" class="btn btn-outline-primary">
-                <i class="bi bi-people"></i> User Management
-            </a>
-            <a href="{{ route('spv.kategori.index') }}" class="btn btn-outline-secondary">
-                <i class="bi bi-list-ul"></i> Kategori Masalah
-            </a>
-        </div>
     </div>
 
     <div class="row g-4 mb-4">

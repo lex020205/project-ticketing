@@ -1,3 +1,5 @@
+{{-- Modul 4/5/6 - Teknisi Ticket, Lampiran, dan Eskalasi --}}
+{{-- Ringkas: detail ticket teknisi, progress, upload lampiran, dan ajukan eskalasi. --}}
 @extends('layouts.app')
 
 @section('title', 'Detail Ticket - Teknisi')

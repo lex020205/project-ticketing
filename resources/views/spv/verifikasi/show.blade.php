@@ -1,3 +1,5 @@
+{{-- Modul 8 - Admin/SPV Verifikasi Ticket Selesai --}}
+{{-- Ringkas: detail verifikasi ticket (SPV). --}}
 @extends('layouts.app')
 
 @section('title', 'Detail Verifikasi Ticket - SPV')

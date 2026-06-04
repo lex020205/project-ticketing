@@ -1,3 +1,5 @@
+{{-- Modul 9 - SPV Monitoring Semua Ticket --}}
+{{-- Ringkas: detail ticket dan aksi SPV. --}}
 @extends('layouts.app')
 
 @section('title', 'Detail Ticket - SPV')

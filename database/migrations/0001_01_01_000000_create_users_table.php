@@ -1,5 +1,8 @@
 <?php
 
+// Modul 1/12 - Auth, Role Access, dan User Management
+// Ringkas: tabel dasar user aplikasi.
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

@@ -1,3 +1,5 @@
+{{-- Modul 11 - Laporan Admin dan SPV --}}
+{{-- Ringkas: laporan dan rekap ticket (SPV). --}}
 @extends('layouts.app')
 
 @section('title', 'Laporan SPV - Sistem Ticketing Laboran')

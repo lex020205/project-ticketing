@@ -1,5 +1,8 @@
 <?php
 
+// Modul 6/7 - Eskalasi Ticket
+// Ringkas: pengajuan dan keputusan eskalasi.
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

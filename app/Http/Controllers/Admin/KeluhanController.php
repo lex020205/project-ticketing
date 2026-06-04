@@ -8,6 +8,8 @@ use App\Models\KategoriMasalah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+// Modul 2 - Admin Keluhan
+// Ringkas: CRUD dan validasi status keluhan.
 class KeluhanController extends Controller
 {
     public function index()

@@ -1,5 +1,8 @@
 <?php
 
+// Modul 13 - SPV Kategori Masalah
+// Ringkas: tabel master kategori masalah.
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

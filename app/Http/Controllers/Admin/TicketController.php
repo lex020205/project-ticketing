@@ -13,6 +13,8 @@ use Illuminate\Support\Str;
 
 class TicketController extends Controller
 {
+    // Modul 10 - Admin Monitoring Ticket dan Assign Teknisi
+    // Ringkas: daftar dan detail ticket untuk monitoring admin.
     public function index()
     {
         $tickets = Ticket::with(['keluhan', 'kategori', 'teknisi'])
@@ -30,6 +32,8 @@ class TicketController extends Controller
         return view('admin.tickets.show', compact('ticket'));
     }
 
+    // Modul 3 - Admin Buat Ticket dari Keluhan
+    // Ringkas: membuat ticket dari keluhan valid.
     public function createFromKeluhan(Keluhan $keluhan)
     {
         $keluhan->load(['kategori', 'ticket']);

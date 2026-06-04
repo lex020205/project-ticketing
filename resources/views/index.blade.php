@@ -1,3 +1,5 @@
+{{-- Modul 1 - Auth, Role Access, dan Dashboard Awal --}}
+{{-- Ringkas: halaman indeks aplikasi. --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>

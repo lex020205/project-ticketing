@@ -1,5 +1,8 @@
 <?php
 
+// Modul 5 - Teknisi Upload Bukti Pengerjaan
+// Ringkas: lampiran bukti pekerjaan ticket.
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

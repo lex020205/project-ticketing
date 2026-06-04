@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
+// Modul 15 - Testing, Quality Check, dan Demo Data
+// Ringkas: data demo user untuk tiap role.
 class UserSeeder extends Seeder
 {
     public function run(): void

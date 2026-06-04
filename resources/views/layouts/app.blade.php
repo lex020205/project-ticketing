@@ -1,3 +1,5 @@
+{{-- Modul 1 - Auth, Role Access, dan Dashboard Awal --}}
+{{-- Ringkas: layout utama aplikasi. --}}
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -289,37 +291,37 @@
                 <!-- Menu Admin -->
                 @if ($role === 'Admin')
                     <li>
-                        <a href="{{ route('admin.dashboard') }}" class="@if (Route::currentRouteName() === 'admin.dashboard') active @endif">
+                        <a href="{{ url('/admin/dashboard') }}" class="@if (request()->is('admin/dashboard')) active @endif">
                             <i class="bi bi-speedometer2"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="@if (Route::currentRouteName() === 'admin.keluhan') active @endif">
+                        <a href="{{ url('/admin/keluhan') }}" class="@if (request()->is('admin/keluhan*')) active @endif">
                             <i class="bi bi-chat-left-text"></i>
                             <span>Keluhan</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="@if (Route::currentRouteName() === 'admin.ticket') active @endif">
+                        <a href="{{ url('/admin/tickets') }}" class="@if (request()->is('admin/tickets*')) active @endif">
                             <i class="bi bi-ticket"></i>
                             <span>Ticket</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="@if (Route::currentRouteName() === 'admin.verifikasi') active @endif">
+                        <a href="{{ url('/admin/verifikasi') }}" class="@if (request()->is('admin/verifikasi*')) active @endif">
                             <i class="bi bi-check-circle"></i>
                             <span>Verifikasi</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.laporan.index') }}" class="@if (Route::currentRouteName() === 'admin.laporan.index') active @endif">
+                        <a href="{{ url('/admin/laporan') }}" class="@if (request()->is('admin/laporan*')) active @endif">
                             <i class="bi bi-file-earmark-pdf"></i>
                             <span>Laporan</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="@if (Route::currentRouteName() === 'admin.profil') active @endif">
+                        <a href="{{ url('/profile') }}" class="@if (request()->is('profile')) active @endif">
                             <i class="bi bi-person-circle"></i>
                             <span>Profil</span>
                         </a>
@@ -329,43 +331,49 @@
                 <!-- Menu SPV -->
                 @if ($role === 'SPV')
                     <li>
-                        <a href="{{ route('spv.dashboard') }}" class="@if (Route::currentRouteName() === 'spv.dashboard') active @endif">
+                        <a href="{{ url('/spv/dashboard') }}" class="@if (request()->is('spv/dashboard')) active @endif">
                             <i class="bi bi-speedometer2"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="@if (Route::currentRouteName() === 'spv.monitoring') active @endif">
+                        <a href="{{ url('/spv/tickets') }}" class="@if (request()->is('spv/tickets*')) active @endif">
                             <i class="bi bi-graph-up"></i>
                             <span>Monitoring Ticket</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="@if (Route::currentRouteName() === 'spv.eskalasi') active @endif">
+                        <a href="{{ url('/spv/eskalasi') }}" class="@if (request()->is('spv/eskalasi*')) active @endif">
                             <i class="bi bi-exclamation-triangle"></i>
                             <span>Eskalasi</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('spv.users.index') }}" class="@if (Route::currentRouteName() === 'spv.users.index') active @endif">
-                            <i class="bi bi-people"></i>
-                            <span>User Management</span>
+                        <a href="{{ url('/spv/verifikasi') }}" class="@if (request()->is('spv/verifikasi*')) active @endif">
+                            <i class="bi bi-check-circle"></i>
+                            <span>Verifikasi</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('spv.kategori.index') }}" class="@if (Route::currentRouteName() === 'spv.kategori.index') active @endif">
-                            <i class="bi bi-list-ul"></i>
-                            <span>Kategori Masalah</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('spv.laporan.index') }}" class="@if (Route::currentRouteName() === 'spv.laporan.index') active @endif">
+                        <a href="{{ url('/spv/laporan') }}" class="@if (request()->is('spv/laporan*')) active @endif">
                             <i class="bi bi-file-earmark-pdf"></i>
                             <span>Laporan</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="@if (Route::currentRouteName() === 'spv.profil') active @endif">
+                        <a href="{{ url('/spv/users') }}" class="@if (request()->is('spv/users*')) active @endif">
+                            <i class="bi bi-people"></i>
+                            <span>User Management</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/spv/kategori') }}" class="@if (request()->is('spv/kategori*')) active @endif">
+                            <i class="bi bi-list-ul"></i>
+                            <span>Kategori Masalah</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/profile') }}" class="@if (request()->is('profile')) active @endif">
                             <i class="bi bi-person-circle"></i>
                             <span>Profil</span>
                         </a>
@@ -375,31 +383,31 @@
                 <!-- Menu Teknisi -->
                 @if ($role === 'Teknisi')
                     <li>
-                        <a href="{{ route('teknisi.dashboard') }}" class="@if (Route::currentRouteName() === 'teknisi.dashboard') active @endif">
+                        <a href="{{ url('/teknisi/dashboard') }}" class="@if (request()->is('teknisi/dashboard')) active @endif">
                             <i class="bi bi-speedometer2"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="@if (Route::currentRouteName() === 'teknisi.ticket') active @endif">
+                        <a href="{{ url('/teknisi/tickets') }}" class="@if (request()->is('teknisi/tickets*')) active @endif">
                             <i class="bi bi-ticket"></i>
                             <span>Ticket Saya</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="@if (Route::currentRouteName() === 'teknisi.riwayat') active @endif">
+                        <a href="{{ url('/teknisi/riwayat-pengerjaan') }}" class="@if (request()->is('teknisi/riwayat-pengerjaan*')) active @endif">
                             <i class="bi bi-clock-history"></i>
                             <span>Riwayat Pengerjaan</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="@if (Route::currentRouteName() === 'teknisi.status') active @endif">
+                        <a href="{{ url('/teknisi/status-saya') }}" class="@if (request()->is('teknisi/status-saya*')) active @endif">
                             <i class="bi bi-bar-chart"></i>
                             <span>Status Saya</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="@if (Route::currentRouteName() === 'teknisi.profil') active @endif">
+                        <a href="{{ url('/profile') }}" class="@if (request()->is('profile')) active @endif">
                             <i class="bi bi-person-circle"></i>
                             <span>Profil</span>
                         </a>

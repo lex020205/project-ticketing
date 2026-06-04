@@ -1,3 +1,5 @@
+{{-- Modul 2 - Admin Keluhan --}}
+{{-- Ringkas: field form keluhan bersama. --}}
 @php
     $formKeluhan = $keluhan ?? null;
     $tanggalValue = old(

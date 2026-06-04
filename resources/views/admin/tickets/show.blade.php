@@ -1,3 +1,5 @@
+{{-- Modul 10 - Admin Monitoring Ticket dan Assign Teknisi --}}
+{{-- Ringkas: detail ticket untuk monitoring admin. --}}
 @extends('layouts.app')
 
 @section('title', 'Detail Ticket - Admin')

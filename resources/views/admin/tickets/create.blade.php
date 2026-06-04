@@ -1,3 +1,5 @@
+{{-- Modul 3 - Admin Buat Ticket dari Keluhan --}}
+{{-- Ringkas: form membuat ticket dari keluhan. --}}
 @extends('layouts.app')
 
 @section('title', 'Buat Ticket - Admin')

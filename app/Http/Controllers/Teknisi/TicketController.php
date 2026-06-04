@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class TicketController extends Controller
 {
+    // Modul 4 - Teknisi Ticket Saya dan Progress Pengerjaan
+    // Ringkas: daftar dan detail ticket teknisi.
     public function index()
     {
         $tickets = Ticket::with(['keluhan', 'kategori'])
@@ -44,6 +46,8 @@ class TicketController extends Controller
         return view('teknisi.tickets.show', compact('ticket', 'progressList', 'lampiranList', 'eskalasiList'));
     }
 
+    // Modul 4 - Teknisi Ticket Saya dan Progress Pengerjaan
+    // Ringkas: mulai pekerjaan dan update progress.
     public function mulai(Ticket $ticket)
     {
         $this->authorizeTicket($ticket);
@@ -138,6 +142,8 @@ class TicketController extends Controller
             ->with('success', 'Ticket berhasil ditandai selesai.');
     }
 
+    // Modul 5 - Teknisi Upload Bukti Pengerjaan
+    // Ringkas: upload lampiran bukti pengerjaan.
     public function uploadLampiran(Request $request, Ticket $ticket)
     {
         $this->authorizeTicket($ticket);
@@ -179,6 +185,8 @@ class TicketController extends Controller
             ->with('success', 'Lampiran berhasil diupload.');
     }
 
+    // Modul 6 - Teknisi Ajukan Eskalasi
+    // Ringkas: pengajuan eskalasi ke SPV.
     public function ajukanEskalasi(Request $request, Ticket $ticket)
     {
         $this->authorizeTicket($ticket);

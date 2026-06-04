@@ -1,3 +1,5 @@
+{{-- Modul 14 - Finalisasi Dashboard Statistik per Role --}}
+{{-- Ringkas: dashboard statistik teknisi. --}}
 @extends('layouts.app')
 
 @section('title', 'Dashboard Teknisi - Sistem Ticketing Laboran')
@@ -26,14 +28,6 @@
     <div class="mb-4">
         <h1 class="fw-bold mb-2">Dashboard Teknisi</h1>
         <p class="text-muted">Lihat ticket yang ditugaskan dan update progress pengerjaan.</p>
-    </div>
-
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
-            <a href="{{ route('teknisi.tickets.index') }}" class="btn btn-primary">
-                <i class="bi bi-ticket"></i> Ticket Saya
-            </a>
-        </div>
     </div>
 
     <div class="row g-4 mb-4">

@@ -1,5 +1,8 @@
 <?php
 
+// Modul 8 - Admin/SPV Verifikasi Ticket Selesai
+// Ringkas: hasil verifikasi penyelesaian ticket.
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

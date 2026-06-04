@@ -10,6 +10,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+// Modul 9 - SPV Monitoring Semua Ticket
+// Ringkas: monitoring ticket, prioritas, dan assign ulang teknisi.
 class TicketController extends Controller
 {
     public function index(Request $request)

@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+// Modul 7 - SPV Keputusan Eskalasi
+// Ringkas: daftar eskalasi dan keputusan SPV.
 class EskalasiController extends Controller
 {
     public function index()

@@ -1,3 +1,5 @@
+{{-- Modul 12 - SPV User Management --}}
+{{-- Ringkas: daftar user dan filter role/status. --}}
 @extends('layouts.app')
 
 @section('title', 'User Management - SPV')

@@ -1,3 +1,5 @@
+{{-- Modul 7 - SPV Keputusan Eskalasi --}}
+{{-- Ringkas: daftar eskalasi menunggu keputusan. --}}
 @extends('layouts.app')
 
 @section('title', 'Daftar Eskalasi - SPV')

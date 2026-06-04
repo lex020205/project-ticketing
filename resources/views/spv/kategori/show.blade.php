@@ -1,3 +1,5 @@
+{{-- Modul 13 - SPV Kategori Masalah --}}
+{{-- Ringkas: detail kategori dan riwayat ticket. --}}
 @extends('layouts.app')
 
 @section('title', 'Detail Kategori - SPV')

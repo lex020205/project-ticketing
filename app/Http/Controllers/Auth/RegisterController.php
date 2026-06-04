@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+// Modul 1 - Auth, Role Access, dan Dashboard Awal
+// Ringkas: registrasi user dan set role default.
 class RegisterController extends Controller
 {
     /**

@@ -1,3 +1,5 @@
+{{-- Modul 2 - Admin Keluhan --}}
+{{-- Ringkas: form edit keluhan. --}}
 @extends('layouts.app')
 
 @section('title', 'Edit Keluhan - Admin')

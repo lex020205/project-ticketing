@@ -1,3 +1,5 @@
+{{-- Modul 2 - Admin Keluhan --}}
+{{-- Ringkas: form tambah keluhan. --}}
 @extends('layouts.app')
 
 @section('title', 'Tambah Keluhan - Admin')

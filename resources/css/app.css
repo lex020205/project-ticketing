@@ -1,3 +1,5 @@
+/* Modul 14 - Finalisasi Dashboard Statistik per Role */
+/* Ringkas: styling global aplikasi. */
 @import 'tailwindcss';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';

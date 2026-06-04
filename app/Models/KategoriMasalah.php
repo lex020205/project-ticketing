@@ -1,5 +1,8 @@
 <?php
 
+// Modul 13 - SPV Kategori Masalah
+// Ringkas: master kategori masalah untuk keluhan dan ticket.
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

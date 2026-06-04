@@ -1,5 +1,8 @@
 <?php
 
+// Modul 3-11 - Siklus Ticket (Admin, Teknisi, SPV)
+// Ringkas: tabel inti ticket.
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

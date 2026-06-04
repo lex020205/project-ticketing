@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+// Modul 12 - SPV User Management
+// Ringkas: CRUD user, status akun, dan reset password.
 class UserController extends Controller
 {
     public function index(Request $request)

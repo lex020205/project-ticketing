@@ -1,3 +1,5 @@
+{{-- Modul 11 - Laporan Admin dan SPV --}}
+{{-- Ringkas: laporan dan filter ticket (admin). --}}
 @extends('layouts.app')
 
 @section('title', 'Laporan Admin - Sistem Ticketing Laboran')
