@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\RoleRedirectHelper;
 use Illuminate\Http\Request;
 
 // Modul 1 - Auth, Role Access, dan Dashboard Awal
@@ -19,18 +20,8 @@ class DashboardController extends Controller
             return redirect()->route('login');
         }
 
-        // Get user's role name
-        $roleName = $user->role?->nama_role;
-
-        switch ($roleName) {
-            case 'Admin':
-                return redirect()->route('admin.dashboard');
-            case 'SPV':
-                return redirect()->route('spv.dashboard');
-            case 'Teknisi':
-                return redirect()->route('teknisi.dashboard');
-            default:
-                return redirect('/');
-        }
+        // Redirect based on user's role
+        return RoleRedirectHelper::redirectByRole($user->role?->nama_role);
     }
 }
+

@@ -20,6 +20,7 @@ use App\Http\Controllers\Teknisi\StatusSayaController as TeknisiStatusSayaContro
 use App\Http\Controllers\Teknisi\TicketController as TeknisiTicketController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
@@ -44,6 +45,14 @@ Route::get('/register', [RegisterController::class, 'showRegisterForm'])
 Route::post('/register', [RegisterController::class, 'register'])
     ->middleware('guest')
     ->name('register.submit');
+
+Route::middleware('guest')->group(function () {
+    Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])
+        ->name('google.redirect');
+
+    Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])
+        ->name('google.callback');
+});
 
 Route::post('/logout', [LoginController::class, 'logout'])
     ->middleware('auth')

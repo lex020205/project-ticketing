@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\RoleRedirectHelper;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,18 +29,10 @@ class CheckRole
         // If user's role doesn't match the required role, redirect to their dashboard
         if ($userRole !== $role) {
             // Redirect ke dashboard sesuai role mereka
-            switch ($userRole) {
-                case 'Admin':
-                    return redirect()->route('admin.dashboard');
-                case 'SPV':
-                    return redirect()->route('spv.dashboard');
-                case 'Teknisi':
-                    return redirect()->route('teknisi.dashboard');
-                default:
-                    return redirect('/');
-            }
+            return RoleRedirectHelper::redirectByRole($userRole);
         }
 
         return $next($request);
     }
 }
+

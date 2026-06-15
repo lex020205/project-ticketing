@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\RoleRedirectHelper;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -45,18 +46,7 @@ class LoginController extends Controller
             }
 
             // Redirect based on user role
-            $roleName = $user->role?->nama_role;
-
-            switch ($roleName) {
-                case 'Admin':
-                    return redirect()->route('admin.dashboard');
-                case 'SPV':
-                    return redirect()->route('spv.dashboard');
-                case 'Teknisi':
-                    return redirect()->route('teknisi.dashboard');
-                default:
-                    return redirect()->route('dashboard');
-            }
+            return RoleRedirectHelper::redirectByRole($user->role?->nama_role);
         }
 
         return back()->withErrors([
