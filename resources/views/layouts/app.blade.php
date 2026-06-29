@@ -42,9 +42,9 @@
             left: 0;
             top: 0;
             height: 100vh;
-            overflow-y: auto;
-            padding-top: 0;
-            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            z-index: 1100;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
 
@@ -69,9 +69,18 @@
             color: var(--primary-color);
         }
 
+        .sidebar-menu-wrapper {
+            flex: 1 1 auto;
+            overflow-y: auto;
+            padding: 0 1rem;
+        }
+
         .sidebar-menu {
             list-style: none;
-            padding: 0 1rem;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
         }
 
         .sidebar-menu li {
@@ -109,25 +118,22 @@
         }
 
         .sidebar-footer {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
             padding: 1rem;
             border-top: 1px solid var(--sidebar-hover);
-            background-color: rgba(0, 0, 0, 0.2);
+            background: transparent;
+            margin-top: auto;
         }
 
         .sidebar-footer .logout-btn {
             width: 100%;
-            padding: 0.75rem;
-            background-color: #dc2626;
+            padding: 12px;
+            background: #dc3545;
             color: white;
             border: none;
-            border-radius: 0.5rem;
+            border-radius: 10px;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            transition: background 0.15s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -135,7 +141,7 @@
         }
 
         .sidebar-footer .logout-btn:hover {
-            background-color: #991b1b;
+            background: #bb2d3b;
         }
 
         /* MAIN CONTENT */
@@ -223,20 +229,20 @@
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .sidebar {
-                width: 200px;
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .sidebar {
+                width: 240px;
                 transform: translateX(-100%);
-                transition: transform 0.3s ease;
+                transition: transform 0.25s ease;
+                position: fixed;
+                left: 0;
+                top: 0;
             }
 
             .sidebar.show {
                 transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
             }
 
             .content {
@@ -282,8 +288,8 @@
                     <span>Ticketing</span>
                 </a>
             </div>
-
-            <ul class="sidebar-menu">
+            <div class="sidebar-menu-wrapper">
+                <ul class="sidebar-menu">
                 @php
                     $role = auth()->user()->role->nama_role;
                 @endphp
@@ -413,7 +419,108 @@
                         </a>
                     </li>
                 @endif
-            </ul>
+
+                <!-- Menu Super Admin -->
+                @if ($role === 'Super Admin')
+                    <li>
+                        <a href="{{ url('/super-admin/dashboard') }}" class="@if (request()->is('super-admin/dashboard')) active @endif">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/super-admin/tickets') }}" class="@if (request()->is('super-admin/tickets*')) active @endif">
+                            <i class="bi bi-graph-up"></i>
+                            <span>Monitoring Ticket</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/admin/keluhan') }}" class="@if (request()->is('admin/keluhan*')) active @endif">
+                            <i class="bi bi-chat-left-text"></i>
+                            <span>Keluhan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/admin/tickets') }}" class="@if (request()->is('admin/tickets*')) active @endif">
+                            <i class="bi bi-ticket"></i>
+                            <span>Ticket</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/admin/verifikasi') }}" class="@if (request()->is('admin/verifikasi*')) active @endif">
+                            <i class="bi bi-check-circle"></i>
+                            <span>Verifikasi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/spv/eskalasi') }}" class="@if (request()->is('spv/eskalasi*')) active @endif">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <span>Eskalasi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/spv/users') }}" class="@if (request()->is('spv/users*')) active @endif">
+                            <i class="bi bi-people"></i>
+                            <span>User Management</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/super-admin/roles') }}" class="@if (request()->is('super-admin/roles*')) active @endif">
+                            <i class="bi bi-shield-lock"></i>
+                            <span>Role Management</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/spv/kategori') }}" class="@if (request()->is('spv/kategori*')) active @endif">
+                            <i class="bi bi-list-ul"></i>
+                            <span>Kategori Masalah</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/teknisi/tickets') }}" class="@if (request()->is('teknisi/tickets*')) active @endif">
+                            <i class="bi bi-ticket"></i>
+                            <span>Ticket Teknisi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/teknisi/riwayat-pengerjaan') }}" class="@if (request()->is('teknisi/riwayat-pengerjaan*')) active @endif">
+                            <i class="bi bi-clock-history"></i>
+                            <span>Riwayat Pengerjaan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/teknisi/status-saya') }}" class="@if (request()->is('teknisi/status-saya*')) active @endif">
+                            <i class="bi bi-bar-chart"></i>
+                            <span>Status Teknisi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/super-admin/laporan') }}" class="@if (request()->is('super-admin/laporan*')) active @endif">
+                            <i class="bi bi-file-earmark-pdf"></i>
+                            <span>Laporan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/super-admin/audit') }}" class="@if (request()->is('super-admin/audit*')) active @endif">
+                            <i class="bi bi-journal-text"></i>
+                            <span>Audit Log</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/super-admin/settings') }}" class="@if (request()->is('super-admin/settings*')) active @endif">
+                            <i class="bi bi-gear"></i>
+                            <span>Pengaturan Sistem</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/profile') }}" class="@if (request()->is('profile')) active @endif">
+                            <i class="bi bi-person-circle"></i>
+                            <span>Profil</span>
+                        </a>
+                    </li>
+                @endif
+                </ul>
+            </div>
 
             <div class="sidebar-footer">
                 <form method="POST" action="{{ route('logout') }}">
@@ -431,6 +538,9 @@
             <!-- NAVBAR -->
             <div class="navbar-custom">
                 <div class="navbar-content">
+                    <button id="sidebarToggle" class="btn btn-sm d-md-none" aria-label="Toggle sidebar" style="margin-right:0.5rem;">
+                        <i class="bi bi-list" style="font-size:1.25rem;color:var(--sidebar-dark);"></i>
+                    </button>
                     <h5 class="navbar-title">Sistem Ticketing Laboran</h5>
                     <div class="navbar-user">
                         <div class="user-info">
@@ -454,6 +564,34 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function(){
+            const sidebar = document.querySelector('.sidebar');
+            const toggle = document.getElementById('sidebarToggle');
+            if (!sidebar || !toggle) return;
+
+            toggle.addEventListener('click', function(e){
+                e.stopPropagation();
+                sidebar.classList.toggle('show');
+            });
+
+            // Close when clicking outside on small screens
+            document.addEventListener('click', function(e){
+                if (window.innerWidth <= 768 && sidebar.classList.contains('show')) {
+                    if (!sidebar.contains(e.target) && e.target !== toggle) {
+                        sidebar.classList.remove('show');
+                    }
+                }
+            });
+
+            // Close on Escape
+            document.addEventListener('keydown', function(e){
+                if (e.key === 'Escape' && sidebar.classList.contains('show')) {
+                    sidebar.classList.remove('show');
+                }
+            });
+        })();
+    </script>
     @yield('extra_js')
 </body>
 </html>

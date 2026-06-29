@@ -16,6 +16,7 @@ class RoleRedirectHelper
     public static function redirectByRole(?string $roleName): RedirectResponse
     {
         return match ($roleName) {
+            'Super Admin' => redirect()->route('super-admin.dashboard'),
             'Admin'   => redirect()->route('admin.dashboard'),
             'SPV'     => redirect()->route('spv.dashboard'),
             'Teknisi' => redirect()->route('teknisi.dashboard'),

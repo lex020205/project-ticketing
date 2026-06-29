@@ -11,25 +11,30 @@ class RoleSeeder extends Seeder
 {
     public function run(): void
     {
-        Role::insert([
+        $roles = [
             [
                 'nama_role' => 'Admin',
                 'deskripsi' => 'Menginput keluhan dan membuat ticket',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'nama_role' => 'SPV',
                 'deskripsi' => 'Mengawasi ticket, eskalasi, user, dan laporan',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'nama_role' => 'Teknisi',
                 'deskripsi' => 'Mengerjakan ticket dan mengupdate progress',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
-        ]);
+            [
+                'nama_role' => 'Super Admin',
+                'deskripsi' => 'Hak akses tertinggi, dapat mengakses seluruh fitur dan fitur pengawasan khusus',
+            ],
+        ];
+
+        foreach ($roles as $role) {
+            Role::updateOrCreate(
+                ['nama_role' => $role['nama_role']],
+                ['deskripsi' => $role['deskripsi']]
+            );
+        }
     }
 }

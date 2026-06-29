@@ -70,6 +70,22 @@ Route::get('/dashboard', [DashboardController::class, 'redirect'])
     ->middleware('auth')
     ->name('dashboard');
 
+// Super Admin routes
+Route::get('/super-admin/dashboard', [\App\Http\Controllers\SuperAdmin\DashboardController::class, 'index'])
+    ->middleware(['auth', 'checkRole:Super Admin'])
+    ->name('super-admin.dashboard');
+
+Route::middleware(['auth', 'checkRole:Super Admin'])
+    ->prefix('super-admin')
+    ->name('super-admin.')
+    ->group(function () {
+        Route::get('/tickets', [\App\Http\Controllers\SuperAdmin\TicketController::class, 'index'])->name('tickets.index');
+        Route::get('/roles', [\App\Http\Controllers\SuperAdmin\RoleController::class, 'index'])->name('roles.index');
+        Route::get('/audit', [\App\Http\Controllers\SuperAdmin\AuditController::class, 'index'])->name('audit.index');
+        Route::get('/settings', [\App\Http\Controllers\SuperAdmin\SettingsController::class, 'index'])->name('settings.index');
+        Route::get('/laporan', [\App\Http\Controllers\SuperAdmin\ReportController::class, 'index'])->name('laporan.index');
+    });
+
 // Modul 14 - Finalisasi Dashboard Statistik per Role
 // Ringkas: dashboard admin dengan ringkasan statistik.
 // Admin routes

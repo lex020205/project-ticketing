@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             KategoriMasalahSeeder::class,
             UserSeeder::class,
+            SuperAdminSeeder::class,
+            SystemSettingSeeder::class,
             DemoTicketSeeder::class,
         ]);
     }
