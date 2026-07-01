@@ -30,11 +30,11 @@
         <form method="POST" action="{{ route('spv.kategori.store') }}">
             @csrf
             <div class="row g-3">
-                <div class="col-md-6">
+                <div class="col-12 col-md-6">
                     <label for="nama_kategori" class="form-label">Nama Kategori</label>
                     <input type="text" name="nama_kategori" id="nama_kategori" class="form-control" value="{{ old('nama_kategori') }}" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-12 col-md-6">
                     <label for="status_kategori" class="form-label">Status</label>
                     <select name="status_kategori" id="status_kategori" class="form-select" required>
                         <option value="">Pilih status</option>
@@ -42,7 +42,7 @@
                         <option value="nonaktif" @selected(old('status_kategori') === 'nonaktif')>Nonaktif</option>
                     </select>
                 </div>
-                <div class="col-md-12">
+                <div class="col-12 col-md-12">
                     <label for="deskripsi" class="form-label">Deskripsi</label>
                     <textarea name="deskripsi" id="deskripsi" class="form-control" rows="4">{{ old('deskripsi') }}</textarea>
                 </div>

@@ -14,25 +14,25 @@
     </div>
 
     <div class="row g-3 mb-4">
-        <div class="col-md-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <div class="card p-3">
                 <h6>Total User</h6>
                 <h3>{{ $totalUser }}</h3>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <div class="card p-3">
                 <h6>Total Admin</h6>
                 <h3>{{ $totalAdmin }}</h3>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <div class="card p-3">
                 <h6>Total SPV</h6>
                 <h3>{{ $totalSpv }}</h3>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <div class="card p-3">
                 <h6>Total Teknisi</h6>
                 <h3>{{ $totalTeknisi }}</h3>
@@ -41,21 +41,21 @@
     </div>
 
     <div class="row g-3 mb-4">
-        <div class="col-md-3"><div class="card p-3"><h6>Total Ticket</h6><h3>{{ $totalTicket }}</h3></div></div>
-        <div class="col-md-3"><div class="card p-3"><h6>Ticket Aktif</h6><h3>{{ $ticketAktif }}</h3></div></div>
-        <div class="col-md-3"><div class="card p-3"><h6>Ticket Ditugaskan</h6><h3>{{ $ticketDitugaskan }}</h3></div></div>
-        <div class="col-md-3"><div class="card p-3"><h6>Sedang Dikerjakan</h6><h3>{{ $ticketSedang }}</h3></div></div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3"><div class="card p-3"><h6>Total Ticket</h6><h3>{{ $totalTicket }}</h3></div></div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3"><div class="card p-3"><h6>Ticket Aktif</h6><h3>{{ $ticketAktif }}</h3></div></div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3"><div class="card p-3"><h6>Ticket Ditugaskan</h6><h3>{{ $ticketDitugaskan }}</h3></div></div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3"><div class="card p-3"><h6>Sedang Dikerjakan</h6><h3>{{ $ticketSedang }}</h3></div></div>
     </div>
 
     <div class="row g-3 mb-4">
-        <div class="col-md-3"><div class="card p-3"><h6>Menunggu Alat</h6><h3>{{ $ticketMenungguAlat }}</h3></div></div>
-        <div class="col-md-3"><div class="card p-3"><h6>Menunggu Verifikasi</h6><h3>{{ $ticketMenungguVerifikasi }}</h3></div></div>
-        <div class="col-md-3"><div class="card p-3"><h6>Ticket Ditutup</h6><h3>{{ $ticketDitutup }}</h3></div></div>
-        <div class="col-md-3"><div class="card p-3"><h6>Ticket Eskalasi</h6><h3>{{ $ticketEskalasi }}</h3></div></div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3"><div class="card p-3"><h6>Menunggu Alat</h6><h3>{{ $ticketMenungguAlat }}</h3></div></div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3"><div class="card p-3"><h6>Menunggu Verifikasi</h6><h3>{{ $ticketMenungguVerifikasi }}</h3></div></div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3"><div class="card p-3"><h6>Ticket Ditutup</h6><h3>{{ $ticketDitutup }}</h3></div></div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3"><div class="card p-3"><h6>Ticket Eskalasi</h6><h3>{{ $ticketEskalasi }}</h3></div></div>
     </div>
 
     <div class="row mb-4">
-        <div class="col-md-8">
+        <div class="col-12 col-lg-8">
             <div class="card p-3">
                 <h6>Monitoring Terbaru</h6>
                 <div class="table-responsive mt-3">
@@ -97,7 +97,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-12 col-lg-4">
             <div class="card p-3 mb-3">
                 <h6>Ticket per Status</h6>
                 <canvas id="chartStatus" height="200"></canvas>

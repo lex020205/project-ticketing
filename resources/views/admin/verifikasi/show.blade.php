@@ -46,31 +46,31 @@
     <div class="card-body">
         <h5 class="fw-semibold mb-3">Data Ticket</h5>
         <div class="row g-3">
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="text-muted small">Kode Ticket</div>
                 <div class="fw-semibold">{{ $ticket->kode_ticket }}</div>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="text-muted small">Status Ticket</div>
                 <div class="fw-semibold">{{ str_replace('_', ' ', $ticket->status_ticket) }}</div>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="text-muted small">Prioritas</div>
                 <span class="badge bg-{{ $prioritasClass }}">{{ $prioritas ? ucfirst($prioritas) : '-' }}</span>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="text-muted small">Teknisi</div>
                 <div class="fw-semibold">{{ $ticket->teknisi?->name ?? '-' }}</div>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="text-muted small">Tanggal Ditugaskan</div>
                 <div class="fw-semibold">{{ $ticket->tanggal_ditugaskan ? \Illuminate\Support\Carbon::parse($ticket->tanggal_ditugaskan)->format('d-m-Y H:i') : '-' }}</div>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="text-muted small">Tanggal Mulai</div>
                 <div class="fw-semibold">{{ $ticket->tanggal_mulai ? \Illuminate\Support\Carbon::parse($ticket->tanggal_mulai)->format('d-m-Y H:i') : '-' }}</div>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="text-muted small">Tanggal Selesai</div>
                 <div class="fw-semibold">{{ $ticket->tanggal_selesai ? \Illuminate\Support\Carbon::parse($ticket->tanggal_selesai)->format('d-m-Y H:i') : '-' }}</div>
             </div>
@@ -82,23 +82,23 @@
     <div class="card-body">
         <h5 class="fw-semibold mb-3">Data Keluhan</h5>
         <div class="row g-3">
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="text-muted small">Nama Pelapor</div>
                 <div class="fw-semibold">{{ $ticket->keluhan?->nama_pelapor ?? '-' }}</div>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="text-muted small">Jenis Pelapor</div>
                 <div class="fw-semibold">{{ $ticket->keluhan?->jenis_pelapor ? ucfirst($ticket->keluhan->jenis_pelapor) : '-' }}</div>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="text-muted small">Kontak Pelapor</div>
                 <div class="fw-semibold">{{ $ticket->keluhan?->kontak_pelapor ?? '-' }}</div>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="text-muted small">Lokasi Keluhan</div>
                 <div class="fw-semibold">{{ $ticket->keluhan?->lokasi_keluhan ?? '-' }}</div>
             </div>
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="text-muted small">Detail Lokasi</div>
                 <div class="fw-semibold">{{ $ticket->keluhan?->detail_lokasi ?? '-' }}</div>
             </div>

@@ -227,6 +227,18 @@
         }
 
         /* RESPONSIVE */
+        /* Tablet: 769px - 1024px */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        /* Small devices: 577px - 768px */
         @media (max-width: 768px) {
             .sidebar {
                 width: 240px;
@@ -235,6 +247,7 @@
                 position: fixed;
                 left: 0;
                 top: 0;
+                z-index: 1100;
             }
 
             .sidebar.show {
@@ -245,8 +258,16 @@
                 margin-left: 0;
             }
 
+            .navbar-custom {
+                padding: 0.75rem 1rem;
+            }
+
+            .navbar-title {
+                font-size: 1rem;
+            }
+
             .content {
-                padding: 1.5rem;
+                padding: 1.25rem;
             }
 
             .navbar-user {
@@ -255,6 +276,145 @@
 
             .user-details {
                 display: none;
+            }
+
+            .user-avatar {
+                width: 36px;
+                height: 36px;
+                font-size: 0.85rem;
+            }
+
+            .sidebar-brand {
+                font-size: 1rem;
+            }
+
+            .sidebar-menu a {
+                font-size: 0.9rem;
+                padding: 0.65rem 0.75rem;
+            }
+
+            .sidebar-header {
+                padding: 1.25rem 1rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Extra small devices: max-width 576px */
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .navbar-custom {
+                padding: 0.625rem 0.75rem;
+            }
+
+            .navbar-title {
+                font-size: 0.95rem;
+                margin: 0;
+                flex: 1;
+            }
+
+            .navbar-content {
+                gap: 0.5rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .user-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 0.75rem;
+            }
+
+            .sidebar-menu a {
+                font-size: 0.85rem;
+                padding: 0.6rem 0.6rem;
+                gap: 0.5rem;
+            }
+
+            .sidebar-menu i {
+                font-size: 0.95rem;
+            }
+
+            .sidebar-header {
+                padding: 1rem 0.75rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .sidebar-menu-wrapper {
+                padding: 0 0.5rem;
+            }
+
+            .sidebar-footer {
+                padding: 0.75rem;
+            }
+
+            .sidebar-footer .logout-btn {
+                padding: 10px;
+                font-size: 0.85rem;
+                border-radius: 8px;
+            }
+
+            .sidebar-footer .logout-btn i {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Very small devices: max-width 480px */
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 180px;
+            }
+
+            .navbar-custom {
+                padding: 0.5rem 0.5rem;
+            }
+
+            .navbar-title {
+                font-size: 0.9rem;
+            }
+
+            .content {
+                padding: 0.75rem;
+            }
+
+            .navbar-user {
+                gap: 0.25rem;
+            }
+
+            .user-avatar {
+                width: 30px;
+                height: 30px;
+                font-size: 0.7rem;
+            }
+
+            .sidebar-brand span {
+                display: none;
+            }
+
+            .sidebar-menu a span {
+                display: none;
+            }
+
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 0.75rem;
+            }
+
+            .sidebar-menu i {
+                font-size: 1rem;
+            }
+
+            .sidebar-header {
+                padding: 0.75rem;
+                text-align: center;
             }
         }
 

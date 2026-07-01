@@ -37,7 +37,7 @@
     </div>
 
     <div class="row g-4 mb-4">
-        <div class="col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <div class="stat-card">
                 <div class="stat-icon stat-icon-blue">
                     <i class="bi bi-chat-left-text"></i>
@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <div class="stat-card">
                 <div class="stat-icon stat-icon-green">
                     <i class="bi bi-bell"></i>
@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <div class="stat-card">
                 <div class="stat-icon stat-icon-purple">
                     <i class="bi bi-check-circle"></i>
@@ -70,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <div class="stat-card">
                 <div class="stat-icon stat-icon-green">
                     <i class="bi bi-ticket"></i>
@@ -81,7 +81,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <div class="stat-card">
                 <div class="stat-icon stat-icon-orange">
                     <i class="bi bi-clock"></i>
@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <div class="stat-card">
                 <div class="stat-icon stat-icon-purple">
                     <i class="bi bi-hourglass-split"></i>
@@ -103,7 +103,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <div class="stat-card">
                 <div class="stat-icon stat-icon-blue">
                     <i class="bi bi-door-closed"></i>
@@ -114,7 +114,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <div class="stat-card">
                 <div class="stat-icon stat-icon-red">
                     <i class="bi bi-exclamation-triangle"></i>
