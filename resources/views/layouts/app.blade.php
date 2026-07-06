@@ -161,10 +161,12 @@
 
         /* NAVBAR */
         .navbar-custom {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--border-light);
             padding: 1rem 2rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -245,15 +247,16 @@
             }
         }
 
-        /* Small devices: 577px - 768px */
+        /* Small/Mobile devices: max-width 768px */
         @media (max-width: 768px) {
             .sidebar {
-                width: 240px;
+                width: 265px;
                 transform: translateX(-100%);
-                transition: transform 0.25s ease;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 position: fixed;
                 left: 0;
                 top: 0;
+                height: 100vh;
                 z-index: 1100;
             }
 
@@ -274,7 +277,7 @@
             }
 
             .content {
-                padding: 1.25rem;
+                padding: 1rem;
             }
 
             .navbar-user {
@@ -292,137 +295,38 @@
             }
 
             .sidebar-brand {
-                font-size: 1rem;
+                font-size: 1.15rem;
             }
 
             .sidebar-menu a {
-                font-size: 0.9rem;
-                padding: 0.65rem 0.75rem;
+                font-size: 0.95rem;
+                padding: 0.75rem 1rem;
             }
 
             .sidebar-header {
-                padding: 1.25rem 1rem;
+                padding: 1.5rem 1rem;
                 margin-bottom: 1rem;
             }
         }
 
-        /* Extra small devices: max-width 576px */
-        @media (max-width: 576px) {
-            .sidebar {
-                width: 200px;
-            }
-
-            .sidebar.show {
-                transform: translateX(0);
-            }
-
-            .navbar-custom {
-                padding: 0.625rem 0.75rem;
-            }
-
-            .navbar-title {
-                font-size: 0.95rem;
-                margin: 0;
-                flex: 1;
-            }
-
-            .navbar-content {
-                gap: 0.5rem;
-            }
-
-            .content {
-                padding: 1rem;
-            }
-
-            .user-avatar {
-                width: 32px;
-                height: 32px;
-                font-size: 0.75rem;
-            }
-
-            .sidebar-menu a {
-                font-size: 0.85rem;
-                padding: 0.6rem 0.6rem;
-                gap: 0.5rem;
-            }
-
-            .sidebar-menu i {
-                font-size: 0.95rem;
-            }
-
-            .sidebar-header {
-                padding: 1rem 0.75rem;
-                margin-bottom: 0.75rem;
-            }
-
-            .sidebar-menu-wrapper {
-                padding: 0 0.5rem;
-            }
-
-            .sidebar-footer {
-                padding: 0.75rem;
-            }
-
-            .sidebar-footer .logout-btn {
-                padding: 10px;
-                font-size: 0.85rem;
-                border-radius: 8px;
-            }
-
-            .sidebar-footer .logout-btn i {
-                font-size: 0.9rem;
-            }
+        /* BACKDROP FOR MOBILE SIDEBAR */
+        .sidebar-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 1050;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-
-        /* Very small devices: max-width 480px */
-        @media (max-width: 480px) {
-            .sidebar {
-                width: 180px;
-            }
-
-            .navbar-custom {
-                padding: 0.5rem 0.5rem;
-            }
-
-            .navbar-title {
-                font-size: 0.9rem;
-            }
-
-            .content {
-                padding: 0.75rem;
-            }
-
-            .navbar-user {
-                gap: 0.25rem;
-            }
-
-            .user-avatar {
-                width: 30px;
-                height: 30px;
-                font-size: 0.7rem;
-            }
-
-            .sidebar-brand span {
-                display: none;
-            }
-
-            .sidebar-menu a span {
-                display: none;
-            }
-
-            .sidebar-menu a {
-                justify-content: center;
-                padding: 0.75rem;
-            }
-
-            .sidebar-menu i {
-                font-size: 1rem;
-            }
-
-            .sidebar-header {
-                padding: 0.75rem;
-                text-align: center;
-            }
+        .sidebar-backdrop.show {
+            display: block;
+            opacity: 1;
         }
 
         /* SCROLLBAR STYLING */
@@ -446,6 +350,7 @@
     @yield('extra_css')
 </head>
 <body>
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
     <div class="main-wrapper">
         <!-- SIDEBAR -->
         <div class="sidebar">
@@ -735,18 +640,38 @@
         (function(){
             const sidebar = document.querySelector('.sidebar');
             const toggle = document.getElementById('sidebarToggle');
-            if (!sidebar || !toggle) return;
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (!sidebar || !toggle || !backdrop) return;
+
+            function toggleSidebar() {
+                const show = sidebar.classList.toggle('show');
+                if (show) {
+                    backdrop.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    backdrop.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('show');
+                backdrop.classList.remove('show');
+                document.body.style.overflow = '';
+            }
 
             toggle.addEventListener('click', function(e){
                 e.stopPropagation();
-                sidebar.classList.toggle('show');
+                toggleSidebar();
             });
+
+            backdrop.addEventListener('click', closeSidebar);
 
             // Close when clicking outside on small screens
             document.addEventListener('click', function(e){
                 if (window.innerWidth <= 768 && sidebar.classList.contains('show')) {
-                    if (!sidebar.contains(e.target) && e.target !== toggle) {
-                        sidebar.classList.remove('show');
+                    if (!sidebar.contains(e.target) && e.target !== toggle && e.target !== backdrop) {
+                        closeSidebar();
                     }
                 }
             });
@@ -754,7 +679,7 @@
             // Close on Escape
             document.addEventListener('keydown', function(e){
                 if (e.key === 'Escape' && sidebar.classList.contains('show')) {
-                    sidebar.classList.remove('show');
+                    closeSidebar();
                 }
             });
         })();
