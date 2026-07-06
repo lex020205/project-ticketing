@@ -1,5 +1,45 @@
 @extends('layouts.app')
 
+@section('extra_css')
+<style>
+    .settings-list-row {
+        gap: 1rem;
+    }
+
+    .settings-list-key {
+        font-size: 1.02rem;
+        line-height: 1.35;
+    }
+
+    .settings-list-description,
+    .settings-list-value {
+        font-size: 0.96rem;
+        line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+        .settings-list-row {
+            flex-direction: column;
+            align-items: flex-start !important;
+            gap: 0.5rem;
+        }
+
+        .settings-list-key {
+            font-size: 1.08rem;
+        }
+
+        .settings-list-description,
+        .settings-list-value {
+            font-size: 1rem;
+        }
+
+        .settings-list-value {
+            text-align: left !important;
+        }
+    }
+</style>
+@endsection
+
 @section('content')
 <div class="container py-3">
     <div class="mb-4">
@@ -16,12 +56,12 @@
 
     <div class="surface-card p-4">
         @forelse($settings as $setting)
-            <div class="d-flex justify-content-between align-items-start border-bottom py-3">
+            <div class="d-flex justify-content-between align-items-start border-bottom py-3 settings-list-row">
                 <div>
-                    <div class="fw-semibold">{{ $setting->key }}</div>
-                    <div class="text-muted small">{{ $setting->description ?? 'Tidak ada deskripsi.' }}</div>
+                    <div class="fw-semibold settings-list-key">{{ $setting->key }}</div>
+                    <div class="text-muted settings-list-description">{{ $setting->description ?? 'Tidak ada deskripsi.' }}</div>
                 </div>
-                <div class="text-end">
+                <div class="text-end settings-list-value">
                     <div class="fw-semibold">{{ $setting->value ?? '-' }}</div>
                 </div>
             </div>

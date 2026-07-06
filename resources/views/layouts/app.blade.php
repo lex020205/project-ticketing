@@ -65,7 +65,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 1.1rem;
+            font-size: 1.18rem;
             font-weight: 600;
             color: var(--sidebar-text);
             text-decoration: none;
@@ -98,12 +98,14 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 0.75rem 1rem;
+            min-height: 48px;
+            padding: 0.9rem 1rem;
             color: var(--sidebar-muted);
             text-decoration: none;
             border-radius: 0.5rem;
             transition: all 0.3s ease;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            line-height: 1.35;
         }
 
         .sidebar-menu a:hover,
@@ -121,7 +123,7 @@
         .sidebar-menu i {
             width: 20px;
             text-align: center;
-            font-size: 1rem;
+            font-size: 1.08rem;
         }
 
         .sidebar-footer {
@@ -179,7 +181,7 @@
         }
 
         .navbar-title {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 600;
             color: #1e293b;
             margin: 0;
@@ -245,12 +247,16 @@
             .main-content {
                 margin-left: 240px;
             }
+
+            .sidebar-menu a {
+                font-size: 0.98rem;
+            }
         }
 
         /* Small/Mobile devices: max-width 768px */
         @media (max-width: 768px) {
             .sidebar {
-                width: 265px;
+                width: 290px;
                 transform: translateX(-100%);
                 transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 position: fixed;
@@ -269,15 +275,16 @@
             }
 
             .navbar-custom {
-                padding: 0.75rem 1rem;
+                padding: 0.85rem 1rem;
             }
 
             .navbar-title {
-                font-size: 1rem;
+                font-size: 1.05rem;
+                line-height: 1.25;
             }
 
             .content {
-                padding: 1rem;
+                padding: 1.1rem;
             }
 
             .navbar-user {
@@ -289,23 +296,43 @@
             }
 
             .user-avatar {
-                width: 36px;
-                height: 36px;
-                font-size: 0.85rem;
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
             }
 
             .sidebar-brand {
-                font-size: 1.15rem;
+                font-size: 1.2rem;
             }
 
             .sidebar-menu a {
-                font-size: 0.95rem;
-                padding: 0.75rem 1rem;
+                font-size: 1.08rem;
+                padding: 0.95rem 1rem;
+                min-height: 52px;
+                line-height: 1.4;
+            }
+
+            .sidebar-menu i {
+                width: 22px;
+                font-size: 1.1rem;
+            }
+
+            .sidebar-menu span {
+                word-break: break-word;
             }
 
             .sidebar-header {
-                padding: 1.5rem 1rem;
+                padding: 1.25rem 1rem;
                 margin-bottom: 1rem;
+            }
+
+            .sidebar-footer {
+                padding: 0.9rem 1rem 1.1rem;
+            }
+
+            .sidebar-footer .logout-btn {
+                min-height: 50px;
+                font-size: 1.02rem;
             }
         }
 

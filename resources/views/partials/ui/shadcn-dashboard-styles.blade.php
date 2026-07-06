@@ -38,7 +38,7 @@
         border-radius: 999px;
         background: #f1f5f9;
         color: var(--text);
-        font-size: 0.8rem;
+        font-size: 0.88rem;
         font-weight: 700;
         letter-spacing: 0.02em;
         text-transform: uppercase;
@@ -55,7 +55,7 @@
     .dashboard-shell .page-subtitle {
         margin: 0;
         color: var(--muted);
-        font-size: 0.95rem;
+        font-size: 1rem;
         line-height: 1.6;
     }
 
@@ -100,7 +100,7 @@
     .dashboard-shell .stat-label {
         margin: 0.15rem 0 0;
         color: var(--muted);
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         font-weight: 500;
     }
 
@@ -124,7 +124,7 @@
         padding: 0.85rem 1rem;
         background: var(--surface-soft);
         color: #334155;
-        font-size: 0.76rem;
+        font-size: 0.82rem;
         font-weight: 700;
         letter-spacing: 0.06em;
         text-transform: uppercase;
@@ -137,6 +137,7 @@
         vertical-align: middle;
         border-color: #edf2f7;
         color: var(--text);
+        font-size: 0.96rem;
     }
 
     .dashboard-shell .table tbody tr:hover {
@@ -193,8 +194,48 @@
             padding-right: 1rem;
         }
 
+        .dashboard-shell .page-kicker {
+            font-size: 0.95rem;
+            padding: 0.4rem 0.8rem;
+            line-height: 1.2;
+        }
+
         .dashboard-shell .page-title {
-            font-size: 1.35rem;
+            font-size: 1.55rem;
+            line-height: 1.2;
+        }
+
+        .dashboard-shell .page-subtitle {
+            font-size: 1.02rem;
+            line-height: 1.65;
+        }
+
+        .dashboard-shell .stat-card {
+            padding: 1rem;
+        }
+
+        .dashboard-shell .stat-value {
+            font-size: 1.7rem;
+        }
+
+        .dashboard-shell .stat-label {
+            font-size: 0.95rem;
+        }
+
+        .dashboard-shell .btn {
+            min-height: 44px;
+            padding: 0.55rem 0.95rem;
+            font-size: 0.95rem;
+        }
+
+        .dashboard-shell .table thead th {
+            font-size: 0.8rem;
+            padding: 0.9rem 0.85rem;
+        }
+
+        .dashboard-shell .table tbody td {
+            font-size: 1rem;
+            padding: 1rem 0.85rem;
         }
     }
 </style>
