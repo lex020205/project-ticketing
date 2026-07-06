@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Sistem Ticketing Laboran')</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -17,15 +20,18 @@
 
         :root {
             --primary-color: #2563eb;
-            --sidebar-dark: #1e293b;
-            --sidebar-hover: #334155;
+            --sidebar-bg: #ffffff;
+            --sidebar-hover: #f8fafc;
             --light-bg: #f8fafc;
             --border-light: #e2e8f0;
+            --sidebar-text: #334155;
+            --sidebar-muted: #64748b;
         }
 
         body {
             background-color: var(--light-bg);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: #0f172a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
 
         .main-wrapper {
@@ -36,8 +42,8 @@
         /* SIDEBAR */
         .sidebar {
             width: 250px;
-            background-color: var(--sidebar-dark);
-            color: white;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
             position: fixed;
             left: 0;
             top: 0;
@@ -45,12 +51,13 @@
             display: flex;
             flex-direction: column;
             z-index: 1100;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            border-right: 1px solid var(--border-light);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
         }
 
         .sidebar-header {
             padding: 1.5rem;
-            border-bottom: 1px solid var(--sidebar-hover);
+            border-bottom: 1px solid var(--border-light);
             margin-bottom: 1.5rem;
         }
 
@@ -60,7 +67,7 @@
             gap: 0.5rem;
             font-size: 1.1rem;
             font-weight: 600;
-            color: white;
+            color: var(--sidebar-text);
             text-decoration: none;
         }
 
@@ -92,7 +99,7 @@
             align-items: center;
             gap: 0.75rem;
             padding: 0.75rem 1rem;
-            color: #cbd5e1;
+            color: var(--sidebar-muted);
             text-decoration: none;
             border-radius: 0.5rem;
             transition: all 0.3s ease;
@@ -102,13 +109,13 @@
         .sidebar-menu a:hover,
         .sidebar-menu a.active {
             background-color: var(--sidebar-hover);
-            color: white;
-            padding-left: 1.25rem;
+            color: var(--sidebar-text);
         }
 
         .sidebar-menu a.active {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: #eff6ff;
+            color: var(--primary-color);
+            font-weight: 600;
         }
 
         .sidebar-menu i {
@@ -119,7 +126,7 @@
 
         .sidebar-footer {
             padding: 1rem;
-            border-top: 1px solid var(--sidebar-hover);
+            border-top: 1px solid var(--border-light);
             background: transparent;
             margin-top: auto;
         }
@@ -127,10 +134,10 @@
         .sidebar-footer .logout-btn {
             width: 100%;
             padding: 12px;
-            background: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 10px;
+            background: #ffffff;
+            color: #dc3545;
+            border: 1px solid #fecaca;
+            border-radius: 999px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.15s ease;
@@ -141,7 +148,7 @@
         }
 
         .sidebar-footer .logout-btn:hover {
-            background: #bb2d3b;
+            background: #fef2f2;
         }
 
         /* MAIN CONTENT */
@@ -424,16 +431,16 @@
         }
 
         .sidebar::-webkit-scrollbar-track {
-            background: var(--sidebar-dark);
+            background: var(--sidebar-bg);
         }
 
         .sidebar::-webkit-scrollbar-thumb {
-            background: var(--sidebar-hover);
+            background: #cbd5e1;
             border-radius: 3px;
         }
 
         .sidebar::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
+            background: #94a3b8;
         }
     </style>
     @yield('extra_css')
@@ -451,7 +458,7 @@
             <div class="sidebar-menu-wrapper">
                 <ul class="sidebar-menu">
                 @php
-                    $role = auth()->user()->role->nama_role;
+                    $role = auth()->user()?->role?->nama_role;
                 @endphp
 
                 <!-- Menu Admin -->
@@ -657,7 +664,7 @@
                     <li>
                         <a href="{{ url('/super-admin/laporan') }}" class="@if (request()->is('super-admin/laporan*')) active @endif">
                             <i class="bi bi-file-earmark-pdf"></i>
-                            <span>Laporan</span>
+                            <span>Laporan Global</span>
                         </a>
                     </li>
                     <li>
@@ -709,7 +716,7 @@
                             </div>
                             <div class="user-details">
                                 <p class="user-name">{{ auth()->user()->name }}</p>
-                                <p class="user-role">{{ auth()->user()->role->nama_role }}</p>
+                                <p class="user-role">{{ auth()->user()?->role?->nama_role ?? 'Tanpa Role' }}</p>
                             </div>
                         </div>
                     </div>

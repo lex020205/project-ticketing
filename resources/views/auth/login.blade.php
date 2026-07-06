@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistem Ticketing Laboran</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -15,152 +18,199 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg: #ffffff;
+            --surface: #ffffff;
+            --surface-soft: #f8fafc;
+            --border: #e2e8f0;
+            --border-strong: #cbd5e1;
+            --text: #0f172a;
+            --muted: #64748b;
+            --primary: #2563eb;
+            --danger: #dc2626;
+        }
+
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .auth-shell {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .auth-form-side {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-
-        .login-container {
-            width: 100%;
-            max-width: 450px;
             padding: 2rem;
+            background: #ffffff;
         }
 
-        .login-box {
-            background: white;
-            border-radius: 1rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
+        .auth-form-inner {
+            width: 100%;
+            max-width: 420px;
         }
 
-        .login-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 3rem 2rem;
-            text-align: center;
-            color: white;
+        .auth-title {
+            margin: 0 0 0.45rem;
+            font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            line-height: 1.08;
         }
 
-        .login-header .system-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .auth-subtitle {
+            margin: 0 0 1.5rem;
+            color: var(--muted);
+            font-size: 0.98rem;
+            line-height: 1.6;
         }
 
-        .login-header h1 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .login-header p {
-            font-size: 0.95rem;
-            opacity: 0.95;
-            margin: 0;
-        }
-
-        .login-body {
-            padding: 2.5rem 2rem;
+        .auth-form-header {
+            margin-bottom: 1.4rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .form-label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
-            color: #1e293b;
-            font-size: 0.95rem;
+            color: #334155;
+            font-size: 0.92rem;
         }
 
         .form-control {
-            padding: 0.75rem 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 0.5rem;
+            padding: 0.78rem 0.95rem;
+            border: 1px solid var(--border);
+            border-radius: 14px;
             font-size: 0.95rem;
-            transition: all 0.3s ease;
+            background: #ffffff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--border-strong);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
         }
 
         .form-check {
-            margin-bottom: 1.5rem;
+            margin: 1rem 0 1.25rem;
         }
 
         .form-check-input {
-            border: 2px solid #e2e8f0;
+            border: 1px solid var(--border-strong);
             cursor: pointer;
         }
 
         .form-check-input:checked {
-            background-color: #667eea;
-            border-color: #667eea;
+            background-color: var(--primary);
+            border-color: var(--primary);
         }
 
         .form-check-label {
             color: #475569;
             font-size: 0.9rem;
             cursor: pointer;
-            margin-left: 0.5rem;
+            margin-left: 0.35rem;
         }
 
         .btn-login {
             width: 100%;
-            padding: 0.75rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0.8rem 1rem;
+            background: #0f172a;
             color: white;
-            border: none;
-            border-radius: 0.5rem;
+            border: 1px solid #0f172a;
+            border-radius: 14px;
             font-weight: 600;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
             cursor: pointer;
         }
 
         .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            background: #111827;
+            border-color: #111827;
+            transform: translateY(-1px);
         }
 
         .btn-login:active {
             transform: translateY(0);
         }
 
-        .login-footer {
-            text-align: center;
-            padding: 1.5rem 2rem;
-            border-top: 1px solid #e2e8f0;
-            background-color: #f8fafc;
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.15rem 0;
+            color: var(--muted);
+            font-size: 0.85rem;
         }
 
-        .login-footer p {
-            margin: 0;
-            color: #64748b;
-            font-size: 0.9rem;
+        .divider::before,
+        .divider::after {
+            content: '';
+            height: 1px;
+            background: var(--border);
+            flex: 1;
         }
 
-        .login-footer a {
-            color: #667eea;
-            text-decoration: none;
+        .btn-google-sso {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: #ffffff;
+            color: #334155;
+            border: 1px solid var(--border);
+            border-radius: 14px;
             font-weight: 600;
-            margin-left: 0.3rem;
+            font-size: 0.98rem;
+            transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
         }
 
-        .login-footer a:hover {
-            text-decoration: underline;
+        .btn-google-sso:hover {
+            background: #f8fafc;
+            border-color: var(--border-strong);
+            transform: translateY(-1px);
+            color: #0f172a;
+        }
+
+        .google-icon {
+            display: inline-block;
+        }
+
+        .auth-visual {
+            position: relative;
+            overflow: hidden;
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)),
+                url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80') center center / cover no-repeat;
+        }
+
+        .auth-visual-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: block;
+            padding: 0;
         }
 
         .alert {
-            border-radius: 0.5rem;
-            border: 2px solid #fecaca;
-            margin-bottom: 1.5rem;
+            border-radius: 14px;
+            border: 1px solid #fecaca;
+            margin-bottom: 1rem;
         }
 
         .alert-danger {
@@ -172,62 +222,56 @@
             display: block;
             margin-top: 0.25rem;
             font-size: 0.85rem;
-            color: #dc2626;
+            color: var(--danger);
         }
 
         .form-control.is-invalid {
-            border-color: #dc2626;
+            border-color: var(--danger);
         }
 
-        .btn-google-sso {
-            width: 100%;
-            padding: 0.75rem;
-            background: white;
-            color: #475569;
-            border: 2px solid #e2e8f0;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
+        @media (max-width: 991px) {
+            .auth-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-visual {
+                min-height: 34vh;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .auth-form-side {
+                padding: 1.25rem;
+            }
         }
 
-        .btn-google-sso:hover {
-            background: #f8fafc;
-            border-color: #cbd5e1;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            color: #1e293b;
-        }
+        @media (max-width: 576px) {
+            .auth-visual,
+            .auth-form-side {
+                padding: 0.85rem;
+            }
 
-        .btn-google-sso:active {
-            transform: translateY(0);
-        }
+            .auth-form-inner {
+                max-width: 100%;
+            }
 
-        .google-icon {
-            display: inline-block;
+            .auth-title {
+                font-size: 1.7rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-box">
-            <div class="login-header">
-                <div class="system-icon">
-                    <i class="bi bi-ticket-detailed"></i>
+    <div class="auth-shell">
+        <section class="auth-form-side">
+            <div class="auth-form-inner">
+                <div class="auth-form-header">
+                    <h1 class="auth-title">Login To Your Account</h1>
+                    <p class="auth-subtitle">Welcome back. Masuk untuk mengakses dashboard sesuai role Anda.</p>
                 </div>
-                <h1>Sistem Ticketing Laboran</h1>
-                <p>Kelola keluhan, ticket, dan maintenance laboran</p>
-            </div>
 
-            <div class="login-body">
                 @if ($errors->any() || session('error'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Login Gagal!</strong>
+                        <strong>Login gagal.</strong>
                         @if (session('error'))
                             <div>{{ session('error') }}</div>
                         @endif
@@ -242,13 +286,13 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label">Email or username</label>
                         <input
                             type="email"
                             class="form-control @error('email') is-invalid @enderror"
                             id="email"
                             name="email"
-                            placeholder="nama@example.com"
+                            placeholder="Enter your email or username"
                             value="{{ old('email') }}"
                             required
                         >
@@ -264,7 +308,7 @@
                             class="form-control @error('password') is-invalid @enderror"
                             id="password"
                             name="password"
-                            placeholder="Masukkan password"
+                            placeholder="••••••••••••"
                             required
                         >
                         @error('password')
@@ -281,17 +325,14 @@
                             {{ old('remember') ? 'checked' : '' }}
                         >
                         <label class="form-check-label" for="remember">
-                            Ingat saya
+                            Remember me
                         </label>
                     </div>
 
-                    <button type="submit" class="btn-login">Login</button>
+                    <button type="submit" class="btn-login">Log in</button>
                 </form>
 
-                <div class="text-center my-3 position-relative">
-                    <span class="text-muted text-sm px-3 bg-white" style="z-index: 2; position: relative;">atau</span>
-                    <hr class="w-100 position-absolute start-0 top-50 translate-middle-y m-0" style="z-index: 1; border-color: #e2e8f0;">
-                </div>
+                <div class="divider">or</div>
 
                 <a href="{{ route('google.redirect') }}" class="btn-google-sso">
                     <svg class="google-icon me-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="20px" height="20px">
@@ -300,16 +341,15 @@
                         <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
                         <path fill="#1976D2" d="M43.611,20.083H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
                     </svg>
-                    Login dengan Google
+                    Login with Google
                 </a>
-            </div>
 
-            <div class="login-footer">
-                <p>
-                    Belum memiliki akun? Hubungi SPV.
-                </p>
             </div>
-        </div>
+        </section>
+
+        <section class="auth-visual d-none d-lg-block">
+            <div class="auth-visual-content"></div>
+        </section>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

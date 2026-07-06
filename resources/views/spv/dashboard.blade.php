@@ -4,6 +4,10 @@
 
 @section('title', 'Dashboard SPV - Sistem Ticketing Laboran')
 
+@section('extra_css')
+    @include('partials.ui.shadcn-dashboard-styles')
+@endsection
+
 @section('content')
 @php
     $prioritasBadge = [
@@ -36,11 +40,12 @@
     ];
 @endphp
 
-<div class="dashboard-container">
-    <div class="mb-4">
-        <h1 class="fw-bold mb-2">Dashboard SPV</h1>
-        <p class="text-muted">Monitoring ticket, eskalasi, user, dan laporan sistem.</p>
-    </div>
+    <div class="dashboard-shell dashboard-container">
+        <div class="page-hero">
+            <span class="page-kicker"><i class="bi bi-speedometer2"></i> Dashboard SPV</span>
+            <h1 class="page-title">Monitoring ticket, eskalasi, user, dan laporan sistem.</h1>
+            <p class="page-subtitle">Komponen statistik, tabel, dan aksi dibuat seragam agar lebih mudah dipindai dan terasa konsisten dengan halaman lain.</p>
+        </div>
 
     <div class="row g-4 mb-4">
         <div class="col-12 col-sm-6 col-md-6 col-lg-3">
@@ -155,8 +160,8 @@
         </div>
     </div>
 
-    <div class="card card-modern mb-4">
-        <div class="card-header bg-light">
+    <div class="card card-modern table-shell mb-4">
+        <div class="card-header">
             <h5 class="mb-0 fw-bold">Ticket Urgent/Darurat</h5>
         </div>
         <div class="card-body p-0">
@@ -204,8 +209,8 @@
         </div>
     </div>
 
-    <div class="card card-modern mb-4">
-        <div class="card-header bg-light">
+    <div class="card card-modern table-shell mb-4">
+        <div class="card-header">
             <h5 class="mb-0 fw-bold">Eskalasi Menunggu Keputusan</h5>
         </div>
         <div class="card-body p-0">
@@ -249,8 +254,8 @@
         </div>
     </div>
 
-    <div class="card card-modern">
-        <div class="card-header bg-light">
+    <div class="card card-modern table-shell">
+        <div class="card-header">
             <h5 class="mb-0 fw-bold">Beban Kerja Teknisi</h5>
         </div>
         <div class="card-body p-0">
@@ -285,107 +290,4 @@
         </div>
     </div>
 </div>
-
-<style>
-    .dashboard-container {
-        max-width: 1400px;
-    }
-
-    .stat-card {
-        background: white;
-        border-radius: 0.75rem;
-        padding: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-        border-left: 4px solid transparent;
-    }
-
-    .stat-card:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-        transform: translateY(-2px);
-    }
-
-    .stat-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 0.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-    }
-
-    .stat-icon-blue {
-        background-color: #dbeafe;
-        color: #1e40af;
-    }
-
-    .stat-icon-red {
-        background-color: #fee2e2;
-        color: #991b1b;
-    }
-
-    .stat-icon-orange {
-        background-color: #fed7aa;
-        color: #92400e;
-    }
-
-    .stat-icon-purple {
-        background-color: #e9d5ff;
-        color: #6b21a8;
-    }
-
-    .stat-content {
-        flex: 1;
-    }
-
-    .stat-value {
-        font-size: 1.75rem;
-        font-weight: 700;
-        color: #1e293b;
-    }
-
-    .stat-label {
-        font-size: 0.85rem;
-        color: #64748b;
-        font-weight: 500;
-    }
-
-    .card-modern {
-        border: 1px solid #e2e8f0;
-        border-radius: 0.75rem;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    }
-
-    .card-header {
-        border-bottom: 1px solid #e2e8f0;
-        padding: 1.25rem;
-    }
-
-    .table {
-        border-collapse: collapse;
-    }
-
-    .table thead th {
-        background-color: #f8fafc;
-        color: #475569;
-        font-weight: 600;
-        border-bottom: 2px solid #e2e8f0;
-        padding: 1rem;
-        font-size: 0.9rem;
-    }
-
-    .table tbody td {
-        padding: 1rem;
-        border-bottom: 1px solid #e2e8f0;
-        vertical-align: middle;
-    }
-
-    .table tbody tr:hover {
-        background-color: #f8fafc;
-    }
-</style>
 @endsection
