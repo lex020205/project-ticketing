@@ -1,0 +1,150 @@
+<?php
+
+namespace App\Services;
+
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+
+class EmailService
+{
+    /**
+     * Kirim email laporan via Resend REST API.
+     *
+     * @param  string  $pdfContent  Binary content PDF
+     * @param  string  $filename    Nama file PDF
+     * @param  array   $meta        Metadata laporan (periode, total, dll)
+     * @return array{success: bool, message: string}
+     */
+    public function sendReportEmail(string $pdfContent, string $filename, array $meta): array
+    {
+        $apiKey    = config('services.resend.key');
+        $fromEmail = config('services.resend.from_email', 'onboarding@resend.dev');
+        $toEmail   = config('services.resend.receiver_email');
+
+        if (empty($apiKey)) {
+            return [
+                'success' => false,
+                'message' => 'Resend API Key belum dikonfigurasi.',
+            ];
+        }
+
+        if (empty($toEmail)) {
+            return [
+                'success' => false,
+                'message' => 'Email tujuan (CONTACT_RECEIVER_EMAIL) belum dikonfigurasi.',
+            ];
+        }
+
+        $tanggalGenerate = now()->format('d F Y');
+        $periodeText     = $this->buildPeriodeText($meta);
+
+        $subject = "Laporan Ticket Laboran - {$tanggalGenerate}";
+
+        $htmlBody = $this->buildEmailHtml($periodeText, $meta['total_data'] ?? 0);
+
+        try {
+            $response = Http::withToken($apiKey)
+                ->timeout(30)
+                ->post('https://api.resend.com/emails', [
+                    'from'        => "Sistem Ticketing Laboran <{$fromEmail}>",
+                    'to'          => [$toEmail],
+                    'subject'     => $subject,
+                    'html'        => $htmlBody,
+                    'attachments' => [
+                        [
+                            'filename' => $filename,
+                            'content'  => base64_encode($pdfContent),
+                        ],
+                    ],
+                ]);
+
+            if ($response->successful()) {
+                return [
+                    'success' => true,
+                    'message' => "Laporan berhasil dibuat dan dikirim ke email {$toEmail}",
+                ];
+            }
+
+            $errorBody = $response->json();
+            $errorMsg  = $errorBody['message'] ?? $response->body();
+
+            Log::error('Resend API Error', [
+                'status' => $response->status(),
+                'body'   => $errorBody,
+            ]);
+
+            return [
+                'success' => false,
+                'message' => "Gagal mengirim email: {$errorMsg}",
+            ];
+        } catch (\Exception $e) {
+            Log::error('Resend API Exception', [
+                'error' => $e->getMessage(),
+            ]);
+
+            return [
+                'success' => false,
+                'message' => "Error saat mengirim email: {$e->getMessage()}",
+            ];
+        }
+    }
+
+    /**
+     * Bangun teks periode laporan.
+     */
+    private function buildPeriodeText(array $meta): string
+    {
+        if (!empty($meta['periode_awal']) && !empty($meta['periode_akhir'])) {
+            return $meta['periode_awal'] . ' s/d ' . $meta['periode_akhir'];
+        }
+
+        return 'Semua Periode';
+    }
+
+    /**
+     * Bangun body HTML email.
+     */
+    private function buildEmailHtml(string $periodeText, int $totalTicket): string
+    {
+        return <<<HTML
+        <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px;">
+            <div style="background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); border-radius: 12px; padding: 32px; margin-bottom: 24px;">
+                <h1 style="color: #ffffff; font-size: 20px; margin: 0 0 4px;">📋 Laporan Ticket Laboran</h1>
+                <p style="color: rgba(255,255,255,0.8); font-size: 14px; margin: 0;">Sistem Ticketing Laboran — UKSW</p>
+            </div>
+
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+                <p style="color: #334155; font-size: 15px; line-height: 1.7; margin: 0 0 20px;">
+                    Halo Admin Laboran,
+                </p>
+                <p style="color: #334155; font-size: 15px; line-height: 1.7; margin: 0 0 20px;">
+                    Terlampir laporan ticket laboran dalam bentuk PDF.
+                </p>
+
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 6px 0; color: #64748b; font-size: 14px; width: 120px;">Periode:</td>
+                            <td style="padding: 6px 0; color: #0f172a; font-size: 14px; font-weight: 600;">{$periodeText}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 6px 0; color: #64748b; font-size: 14px;">Total Ticket:</td>
+                            <td style="padding: 6px 0; color: #0f172a; font-size: 14px; font-weight: 600;">{$totalTicket}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <p style="color: #64748b; font-size: 13px; line-height: 1.6; margin: 0;">
+                    Email ini dikirim secara otomatis oleh Sistem Ticketing Laboran.
+                </p>
+            </div>
+
+            <div style="text-align: center; padding: 16px 0;">
+                <p style="color: #94a3b8; font-size: 12px; margin: 0;">
+                    &copy; Universitas Kristen Satya Wacana — Fakultas Teknologi Informasi
+                </p>
+            </div>
+        </div>
+        HTML;
+    }
+}
