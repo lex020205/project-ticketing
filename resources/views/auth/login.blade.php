@@ -193,9 +193,7 @@
         .auth-visual {
             position: relative;
             overflow: hidden;
-            background:
-                linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)),
-                url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80') center center / cover no-repeat;
+            background: #ffffff url('{{ asset('images/logo-noc.png') }}') center center / contain no-repeat;
         }
 
         .auth-visual-content {
