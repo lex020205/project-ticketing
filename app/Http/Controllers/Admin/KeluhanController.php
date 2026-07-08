@@ -113,7 +113,10 @@ class KeluhanController extends Controller
 
     private function generateKodeKeluhan(): string
     {
-        $latest = Keluhan::orderByDesc('id')->value('kode_keluhan');
+        // Cari kode keluhan terakhir yang tidak mengandung kata 'DEMO' (dari seeder)
+        $latest = Keluhan::where('kode_keluhan', 'not like', '%DEMO%')
+            ->orderByDesc('id')
+            ->value('kode_keluhan');
 
         if (!$latest) {
             return 'KLH-0001';
