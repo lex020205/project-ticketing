@@ -131,7 +131,10 @@ class TicketController extends Controller
 
     private function generateKodeTicket(): string
     {
-        $latest = Ticket::orderByDesc('id')->value('kode_ticket');
+        // Cari kode ticket terakhir yang tidak mengandung kata 'DEMO' (dari seeder)
+        $latest = Ticket::where('kode_ticket', 'not like', '%DEMO%')
+            ->orderByDesc('id')
+            ->value('kode_ticket');
 
         if (!$latest) {
             return 'TCK-0001';

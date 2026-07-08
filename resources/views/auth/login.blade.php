@@ -233,6 +233,7 @@
             }
 
             .auth-visual {
+                order: -1;
                 min-height: 34vh;
                 border-bottom: 1px solid var(--border);
             }
@@ -345,7 +346,7 @@
             </div>
         </section>
 
-        <section class="auth-visual d-none d-lg-block">
+        <section class="auth-visual">
             <div class="auth-visual-content"></div>
         </section>
     </div>
