@@ -36,17 +36,6 @@ class ReportExportController extends Controller
 
         $pdf = $this->pdfService->generateReport($tickets, $summary, $meta);
 
-<<<<<<< HEAD
-        // Simpan log
-        $this->reportService->createLog([
-            'user_id'       => Auth::id(),
-            'periode_awal'  => $filters['tanggal_awal'] ?? null,
-            'periode_akhir' => $filters['tanggal_akhir'] ?? null,
-            'nama_file'     => $pdf['filename'],
-            'email_tujuan'  => null,
-            'status'        => 'berhasil',
-        ]);
-=======
         // Simpan log bila tabel tersedia; jangan memecah alur bila belum migrasi.
         try {
             $this->reportService->createLog([
@@ -61,7 +50,6 @@ class ReportExportController extends Controller
         } catch (\Throwable $e) {
             \Log::warning('Gagal menulis log laporan PDF', ['message' => $e->getMessage()]);
         }
->>>>>>> 5d8238d (Initial commit)
 
         return response($pdf['content'], 200, [
             'Content-Type'        => 'application/pdf',
@@ -99,22 +87,6 @@ class ReportExportController extends Controller
 
         $toEmail = config('services.resend.receiver_email');
 
-<<<<<<< HEAD
-        // Simpan log
-        $this->reportService->createLog([
-            'user_id'       => Auth::id(),
-            'periode_awal'  => $filters['tanggal_awal'] ?? null,
-            'periode_akhir' => $filters['tanggal_akhir'] ?? null,
-            'nama_file'     => $pdf['filename'],
-            'email_tujuan'  => $toEmail,
-            'status'        => $emailResult['success'] ? 'berhasil' : 'gagal',
-            'error_message' => $emailResult['success'] ? null : $emailResult['message'],
-        ]);
-
-        return response()->json([
-            'success' => $emailResult['success'],
-            'message' => $emailResult['message'],
-=======
         // Simpan log bila tabel tersedia; jangan memecah alur bila belum migrasi.
         try {
             $this->reportService->createLog([
@@ -180,7 +152,6 @@ class ReportExportController extends Controller
                 : ($emailResult['message'] ?? 'Gagal mengirim laporan.'),
             'recipient_email' => $toEmail,
             'email_sent' => $emailResult['success'],
->>>>>>> 5d8238d (Initial commit)
         ], $emailResult['success'] ? 200 : 500);
     }
 

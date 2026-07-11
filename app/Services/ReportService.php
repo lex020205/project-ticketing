@@ -79,11 +79,6 @@ class ReportService
     /**
      * Simpan log generate laporan.
      */
-<<<<<<< HEAD
-    public function createLog(array $data): ReportLog
-    {
-        return ReportLog::create($data);
-=======
     public function createLog(array $data): ?ReportLog
     {
         try {
@@ -96,7 +91,6 @@ class ReportService
             \Log::warning('ReportService::createLog failed', ['message' => $e->getMessage()]);
             return null;
         }
->>>>>>> 5d8238d (Initial commit)
     }
 
     /**
@@ -127,9 +121,6 @@ class ReportService
             $query->whereBetween('created_at', [$tanggalAwal, $tanggalAkhir]);
         }
     }
-<<<<<<< HEAD
-}
-=======
 
     /**
      * Ambil data rekap teknisi untuk laporan PDF.
@@ -181,5 +172,3 @@ class ReportService
         ];
     }
 }
-
->>>>>>> 5d8238d (Initial commit)

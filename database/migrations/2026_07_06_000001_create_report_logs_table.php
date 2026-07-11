@@ -10,21 +10,12 @@ return new class extends Migration
     {
         Schema::create('report_logs', function (Blueprint $table) {
             $table->id();
-<<<<<<< HEAD
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->date('periode_awal')->nullable();
-            $table->date('periode_akhir')->nullable();
-            $table->string('nama_file');
-            $table->string('email_tujuan')->nullable();
-            $table->enum('status', ['berhasil', 'gagal'])->default('berhasil');
-=======
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->date('periode_awal')->nullable();
             $table->date('periode_akhir')->nullable();
             $table->string('nama_file')->nullable();
             $table->string('email_tujuan')->nullable();
             $table->string('status')->default('berhasil');
->>>>>>> 5d8238d (Initial commit)
             $table->text('error_message')->nullable();
             $table->timestamps();
         });

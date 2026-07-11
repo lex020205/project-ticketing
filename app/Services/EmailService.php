@@ -147,9 +147,6 @@ class EmailService
         </div>
         HTML;
     }
-<<<<<<< HEAD
-}
-=======
 
     /**
      * Kirim email laporan rekap teknisi via Resend REST API.
@@ -293,5 +290,3 @@ class EmailService
         HTML;
     }
 }
-
->>>>>>> 5d8238d (Initial commit)

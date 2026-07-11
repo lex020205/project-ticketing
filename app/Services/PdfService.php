@@ -36,8 +36,6 @@ class PdfService
             'filename' => $filename,
         ];
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Generate laporan PDF rekap teknisi.
@@ -70,5 +68,4 @@ class PdfService
             'filename' => $filename,
         ];
     }
->>>>>>> 5d8238d (Initial commit)
 }
