@@ -6,10 +6,22 @@
 
 @section('content')
 <div class="dashboard-shell container">
+<<<<<<< HEAD
     <div class="page-hero">
         <span class="page-kicker"><i class="bi bi-file-earmark-text"></i> Laporan Global</span>
         <h1 class="page-title">Laporan Global</h1>
         <p class="page-subtitle">Ringkasan operasional untuk melihat volume ticket, kondisi penyelesaian, serta aktivitas terbaru lintas role.</p>
+=======
+    <div class="page-hero d-flex justify-content-between align-items-start gap-3">
+        <div>
+            <span class="page-kicker"><i class="bi bi-file-earmark-text"></i> Laporan Global</span>
+            <h1 class="page-title">Laporan Global</h1>
+            <p class="page-subtitle">Ringkasan operasional untuk melihat volume ticket, kondisi penyelesaian, serta aktivitas terbaru lintas role.</p>
+        </div>
+        <button type="button" class="btn btn-success" id="generateRekapBtn">
+            <i class="bi bi-file-earmark-pdf me-2"></i>Generate Laporan
+        </button>
+>>>>>>> 5d8238d (Initial commit)
     </div>
 
     <div class="row g-3 mb-3">
@@ -128,3 +140,54 @@
     </div>
 </div>
 @endsection
+<<<<<<< HEAD
+=======
+
+@section('extra_js')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const button = document.getElementById('generateRekapBtn');
+        if (!button) return;
+
+        button.addEventListener('click', function () {
+            const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            button.disabled = true;
+            button.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+
+            fetch('{{ route('super-admin.laporan.export.rekap') }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrf,
+                    'Accept': 'application/json'
+                }
+            })
+            .then(async response => {
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) {
+                    throw new Error(data.message || 'Gagal membuat laporan');
+                }
+                return data;
+            })
+            .then(data => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Laporan berhasil dikirim',
+                    text: data.message || 'Laporan rekap teknisi telah dikirim ke email yang dituju.',
+                });
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal membuat laporan',
+                    text: error.message,
+                });
+            })
+            .finally(() => {
+                button.disabled = false;
+                button.innerHTML = '<i class="bi bi-file-earmark-pdf me-2"></i>Generate Laporan';
+            });
+        });
+    });
+</script>
+@endsection
+>>>>>>> 5d8238d (Initial commit)

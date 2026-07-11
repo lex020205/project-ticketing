@@ -79,9 +79,24 @@ class ReportService
     /**
      * Simpan log generate laporan.
      */
+<<<<<<< HEAD
     public function createLog(array $data): ReportLog
     {
         return ReportLog::create($data);
+=======
+    public function createLog(array $data): ?ReportLog
+    {
+        try {
+            if (!\Illuminate\Support\Facades\Schema::hasTable('report_logs')) {
+                return null;
+            }
+
+            return ReportLog::create($data);
+        } catch (\Throwable $e) {
+            \Log::warning('ReportService::createLog failed', ['message' => $e->getMessage()]);
+            return null;
+        }
+>>>>>>> 5d8238d (Initial commit)
     }
 
     /**
@@ -112,4 +127,59 @@ class ReportService
             $query->whereBetween('created_at', [$tanggalAwal, $tanggalAkhir]);
         }
     }
+<<<<<<< HEAD
 }
+=======
+
+    /**
+     * Ambil data rekap teknisi untuk laporan PDF.
+     * Mengelompokkan ticket selesai (ditutup) berdasarkan teknisi.
+     *
+     * @return array{rekap: \Illuminate\Support\Collection, summary: array}
+     */
+    public function getRekapTeknisiData(): array
+    {
+        $tickets = Ticket::where('status_ticket', 'ditutup')
+            ->whereNotNull('teknisi_id')
+            ->with(['keluhan', 'kategori', 'teknisi'])
+            ->orderBy('teknisi_id')
+            ->orderByDesc('tanggal_selesai')
+            ->get();
+
+        return $this->buildRekapTeknisiPayload($tickets);
+    }
+
+    /**
+     * Bangun payload rekap teknisi dari koleksi ticket yang sudah terfilter.
+     */
+    public function buildRekapTeknisiPayload(Collection $tickets): array
+    {
+        $ticketSelesai = $tickets->filter(fn ($ticket) => $ticket->status_ticket === 'ditutup' && !empty($ticket->teknisi_id));
+
+        $rekapPerTeknisi = $ticketSelesai->groupBy('teknisi_id')->map(function ($groupedTickets) {
+            $teknisi = $groupedTickets->first()->teknisi;
+            return [
+                'nama_teknisi'   => $teknisi?->name ?? 'Tidak Diketahui',
+                'jumlah_selesai' => $groupedTickets->count(),
+                'tickets'        => $groupedTickets,
+            ];
+        })->values();
+
+        $summary = [
+            'jumlah_teknisi'       => User::where('status_user', 'aktif')
+                ->whereHas('role', fn ($q) => $q->where('nama_role', 'Teknisi'))
+                ->count(),
+            'total_ticket_selesai' => $ticketSelesai->count(),
+            'total_ticket_aktif'   => $tickets->whereNotIn('status_ticket', ['ditutup', 'dibatalkan'])->count(),
+            'total_ticket_eskalasi'=> $tickets->where('status_ticket', 'eskalasi')->count(),
+            'total_ticket_ditolak' => $tickets->where('status_ticket', 'dibatalkan')->count(),
+        ];
+
+        return [
+            'rekap'   => $rekapPerTeknisi,
+            'summary' => $summary,
+        ];
+    }
+}
+
+>>>>>>> 5d8238d (Initial commit)

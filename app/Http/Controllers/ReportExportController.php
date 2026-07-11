@@ -36,6 +36,7 @@ class ReportExportController extends Controller
 
         $pdf = $this->pdfService->generateReport($tickets, $summary, $meta);
 
+<<<<<<< HEAD
         // Simpan log
         $this->reportService->createLog([
             'user_id'       => Auth::id(),
@@ -45,6 +46,22 @@ class ReportExportController extends Controller
             'email_tujuan'  => null,
             'status'        => 'berhasil',
         ]);
+=======
+        // Simpan log bila tabel tersedia; jangan memecah alur bila belum migrasi.
+        try {
+            $this->reportService->createLog([
+                'user_id'       => Auth::id(),
+                'periode_awal'  => $filters['tanggal_awal'] ?? null,
+                'periode_akhir' => $filters['tanggal_akhir'] ?? null,
+                'nama_file'     => $pdf['filename'],
+                'email_tujuan'  => null,
+                'status'        => 'berhasil',
+                'error_message' => null,
+            ]);
+        } catch (\Throwable $e) {
+            \Log::warning('Gagal menulis log laporan PDF', ['message' => $e->getMessage()]);
+        }
+>>>>>>> 5d8238d (Initial commit)
 
         return response($pdf['content'], 200, [
             'Content-Type'        => 'application/pdf',
@@ -82,6 +99,7 @@ class ReportExportController extends Controller
 
         $toEmail = config('services.resend.receiver_email');
 
+<<<<<<< HEAD
         // Simpan log
         $this->reportService->createLog([
             'user_id'       => Auth::id(),
@@ -96,6 +114,73 @@ class ReportExportController extends Controller
         return response()->json([
             'success' => $emailResult['success'],
             'message' => $emailResult['message'],
+=======
+        // Simpan log bila tabel tersedia; jangan memecah alur bila belum migrasi.
+        try {
+            $this->reportService->createLog([
+                'user_id'       => Auth::id(),
+                'periode_awal'  => $filters['tanggal_awal'] ?? null,
+                'periode_akhir' => $filters['tanggal_akhir'] ?? null,
+                'nama_file'     => $pdf['filename'],
+                'email_tujuan'  => $toEmail,
+                'status'        => $emailResult['success'] ? 'berhasil' : 'gagal',
+                'error_message' => $emailResult['success'] ? null : $emailResult['message'],
+            ]);
+        } catch (\Throwable $e) {
+            \Log::warning('Gagal menulis log pengiriman laporan email', ['message' => $e->getMessage()]);
+        }
+
+        return response()->json([
+            'success' => $emailResult['success'],
+            'message' => $emailResult['success']
+                ? "Laporan berhasil dikirim ke email {$toEmail}."
+                : ($emailResult['message'] ?? 'Gagal mengirim laporan.'),
+            'recipient_email' => $toEmail,
+            'email_sent' => $emailResult['success'],
+        ], $emailResult['success'] ? 200 : 500);
+    }
+
+    /**
+     * Generate PDF rekap teknisi dan kirim lewat email. */
+    public function exportRekapTeknisi(Request $request)
+    {
+        $filters = $this->extractFilters($request);
+        $rekapData = $this->reportService->getRekapTeknisiData();
+        $summary = $rekapData['summary'];
+        $meta = $this->buildMeta($filters, $summary['total_ticket_selesai'] ?? 0);
+
+        $pdf = $this->pdfService->generateRekapTeknisi($rekapData['rekap'], $summary, $meta);
+
+        $emailResult = $this->emailService->sendRekapTeknisiEmail(
+            $pdf['content'],
+            $pdf['filename'],
+            $meta + $summary
+        );
+
+        try {
+            $this->reportService->createLog([
+                'user_id'       => Auth::id(),
+                'periode_awal'  => $filters['tanggal_awal'] ?? null,
+                'periode_akhir' => $filters['tanggal_akhir'] ?? null,
+                'nama_file'     => $pdf['filename'],
+                'email_tujuan'  => config('services.resend.receiver_email'),
+                'status'        => $emailResult['success'] ? 'berhasil' : 'gagal',
+                'error_message' => $emailResult['success'] ? null : $emailResult['message'],
+            ]);
+        } catch (\Throwable $e) {
+            \Log::warning('Gagal menulis log rekap teknisi', ['message' => $e->getMessage()]);
+        }
+
+        $toEmail = config('services.resend.receiver_email');
+
+        return response()->json([
+            'success' => $emailResult['success'],
+            'message' => $emailResult['success']
+                ? "Laporan rekap teknisi berhasil dikirim ke email {$toEmail}."
+                : ($emailResult['message'] ?? 'Gagal mengirim laporan.'),
+            'recipient_email' => $toEmail,
+            'email_sent' => $emailResult['success'],
+>>>>>>> 5d8238d (Initial commit)
         ], $emailResult['success'] ? 200 : 500);
     }
 

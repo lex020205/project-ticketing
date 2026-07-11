@@ -10,6 +10,12 @@
         <h1 class="fw-bold mb-1">Laporan SPV</h1>
         <p class="text-muted mb-0">Rekap detail ticket dan performa teknisi berdasarkan filter.</p>
     </div>
+<<<<<<< HEAD
+=======
+    <button type="button" class="btn btn-success" id="generateRekapBtn">
+        <i class="bi bi-file-earmark-pdf me-2"></i>Generate Laporan
+    </button>
+>>>>>>> 5d8238d (Initial commit)
 </div>
 
 @php
@@ -355,3 +361,110 @@
     }
 </style>
 @endsection
+<<<<<<< HEAD
+=======
+
+@section('extra_js')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const button = document.getElementById('generateRekapBtn');
+        if (!button) return;
+
+        button.addEventListener('click', function () {
+            const form = document.querySelector('form[action="{{ route('spv.laporan.index') }}"]');
+            const formData = form ? new FormData(form) : new FormData();
+            const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            button.disabled = true;
+            button.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+
+            fetch('{{ route('spv.laporan.export.rekap') }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrf,
+                    'Accept': 'application/json'
+                },
+                body: formData
+            })
+            .then(async response => {
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) {
+                    throw new Error(data.message || 'Gagal membuat laporan');
+                }
+                return data;
+            })
+            .then(data => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Laporan berhasil dikirim',
+                    text: data.message || 'Laporan rekap teknisi telah dikirim ke email yang dituju.',
+                });
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal membuat laporan',
+                    text: error.message,
+                });
+            })
+            .finally(() => {
+                button.disabled = false;
+                button.innerHTML = '<i class="bi bi-file-earmark-pdf me-2"></i>Generate Laporan';
+            });
+        });
+    });
+</script>
+@endsection
+
+@section('extra_js')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const button = document.getElementById('generateRekapBtn');
+        if (!button) return;
+
+        button.addEventListener('click', function () {
+            const form = document.querySelector('form[action="{{ route('spv.laporan.index') }}"]');
+            const formData = new FormData(form);
+            const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            button.disabled = true;
+            button.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+
+            fetch('{{ route('spv.laporan.export.rekap') }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrf,
+                    'Accept': 'application/json'
+                },
+                body: formData
+            })
+            .then(async response => {
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) {
+                    throw new Error(data.message || 'Gagal membuat laporan');
+                }
+                return data;
+            })
+            .then(data => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Laporan berhasil dikirim',
+                    text: data.message || 'Laporan rekap teknisi telah dikirim ke email yang dituju.',
+                });
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal membuat laporan',
+                    text: error.message,
+                });
+            })
+            .finally(() => {
+                button.disabled = false;
+                button.innerHTML = '<i class="bi bi-file-earmark-pdf me-2"></i>Generate Laporan';
+            });
+        });
+    });
+</script>
+@endsection
+>>>>>>> 5d8238d (Initial commit)

@@ -84,6 +84,10 @@ Route::middleware(['auth', 'checkRole:Super Admin'])
         Route::get('/audit', [\App\Http\Controllers\SuperAdmin\AuditController::class, 'index'])->name('audit.index');
         Route::get('/settings', [\App\Http\Controllers\SuperAdmin\SettingsController::class, 'index'])->name('settings.index');
         Route::get('/laporan', [\App\Http\Controllers\SuperAdmin\ReportController::class, 'index'])->name('laporan.index');
+<<<<<<< HEAD
+=======
+        Route::post('/laporan/export-rekap', [\App\Http\Controllers\ReportExportController::class, 'exportRekapTeknisi'])->name('laporan.export.rekap');
+>>>>>>> 5d8238d (Initial commit)
     });
 
 // Modul 14 - Finalisasi Dashboard Statistik per Role
@@ -164,6 +168,10 @@ Route::middleware(['auth', 'checkRole:SPV'])
         // Modul 11 - Laporan Admin dan SPV
         // Ringkas: laporan SPV.
         Route::get('/laporan', [SpvLaporanController::class, 'index'])->name('laporan.index');
+<<<<<<< HEAD
+=======
+        Route::post('/laporan/export-rekap', [\App\Http\Controllers\ReportExportController::class, 'exportRekapTeknisi'])->name('laporan.export.rekap');
+>>>>>>> 5d8238d (Initial commit)
 
         // Modul 9 - SPV Monitoring Semua Ticket
         // Ringkas: monitoring ticket SPV termasuk prioritas dan assign ulang.
