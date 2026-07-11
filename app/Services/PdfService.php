@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 
 class PdfService
 {
@@ -67,5 +68,17 @@ class PdfService
             'content'  => $pdf->output(),
             'filename' => $filename,
         ];
+    }
+
+    /**
+     * Simpan PDF yang sudah dibuat ke storage lokal agar tetap tersedia meski email gagal.
+     */
+    public function savePdfToDisk(string $content, string $filename): string
+    {
+        $relativePath = 'reports/' . date('Y-m-d') . '/' . $filename;
+
+        Storage::disk('local')->put($relativePath, $content);
+
+        return $relativePath;
     }
 }
