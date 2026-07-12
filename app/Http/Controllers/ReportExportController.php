@@ -78,14 +78,14 @@ class ReportExportController extends Controller
         // Generate PDF
         $pdf = $this->pdfService->generateReport($tickets, $summary, $meta);
 
-        // Kirim email via Resend API
+        // Kirim email via Resend API atau fallback Laravel mailer
         $emailResult = $this->emailService->sendReportEmail(
             $pdf['content'],
             $pdf['filename'],
             $meta
         );
 
-        $toEmail = config('services.resend.receiver_email');
+        $toEmail = config('services.resend.receiver_email') ?: config('mail.from.address');
 
         // Simpan log bila tabel tersedia; jangan memecah alur bila belum migrasi.
         try {
@@ -145,7 +145,7 @@ class ReportExportController extends Controller
                 \Log::warning('Gagal menulis log rekap teknisi', ['message' => $e->getMessage()]);
             }
 
-            $toEmail = config('services.resend.receiver_email');
+            $toEmail = config('services.resend.receiver_email') ?: config('mail.from.address');
             $savedToDisk = !empty($savedPath);
             $emailSent = (bool) ($emailResult['success'] ?? false);
 

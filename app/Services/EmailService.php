@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class EmailService
 {
@@ -19,19 +21,12 @@ class EmailService
     {
         $apiKey    = config('services.resend.key');
         $fromEmail = config('services.resend.from_email', 'onboarding@resend.dev');
-        $toEmail   = config('services.resend.receiver_email');
-
-        if (empty($apiKey)) {
-            return [
-                'success' => false,
-                'message' => 'Resend API Key belum dikonfigurasi.',
-            ];
-        }
+        $toEmail   = config('services.resend.receiver_email') ?: config('mail.from.address');
 
         if (empty($toEmail)) {
             return [
                 'success' => false,
-                'message' => 'Email tujuan (CONTACT_RECEIVER_EMAIL) belum dikonfigurasi.',
+                'message' => 'Email tujuan (CONTACT_RECEIVER_EMAIL atau MAIL_FROM_ADDRESS) belum dikonfigurasi.',
             ];
         }
 
@@ -43,50 +38,112 @@ class EmailService
         $htmlBody = $this->buildEmailHtml($periodeText, $meta['total_data'] ?? 0);
 
         try {
-            $response = Http::withToken($apiKey)
-                ->timeout(30)
-                ->post('https://api.resend.com/emails', [
-                    'from'        => "Sistem Ticketing Laboran <{$fromEmail}>",
-                    'to'          => [$toEmail],
-                    'subject'     => $subject,
-                    'html'        => $htmlBody,
-                    'attachments' => [
-                        [
-                            'filename' => $filename,
-                            'content'  => base64_encode($pdfContent),
+            if (!empty($apiKey)) {
+                $response = Http::withToken($apiKey)
+                    ->timeout(30)
+                    ->post('https://api.resend.com/emails', [
+                        'from'        => "Sistem Ticketing Laboran <{$fromEmail}>",
+                        'to'          => [$toEmail],
+                        'subject'     => $subject,
+                        'html'        => $htmlBody,
+                        'attachments' => [
+                            [
+                                'filename' => $filename,
+                                'content'  => base64_encode($pdfContent),
+                            ],
                         ],
-                    ],
-                ]);
+                    ]);
 
-            if ($response->successful()) {
-                return [
-                    'success' => true,
-                    'message' => "Laporan berhasil dibuat dan dikirim ke email {$toEmail}",
-                ];
+                if ($response->successful()) {
+                    return [
+                        'success' => true,
+                        'message' => "Laporan berhasil dibuat dan dikirim ke email {$toEmail}",
+                    ];
+                }
+
+                $errorBody = $response->json();
+                $errorMsg  = $errorBody['message'] ?? $response->body();
+
+                Log::warning('Resend API gagal, mencoba fallback SMTP', [
+                    'status' => $response->status(),
+                    'body'   => $errorBody,
+                ]);
             }
 
-            $errorBody = $response->json();
-            $errorMsg  = $errorBody['message'] ?? $response->body();
-
-            Log::error('Resend API Error', [
-                'status' => $response->status(),
-                'body'   => $errorBody,
-            ]);
-
-            return [
-                'success' => false,
-                'message' => "Gagal mengirim email: {$errorMsg}",
-            ];
+            return $this->sendWithLaravelMailer($toEmail, $subject, $htmlBody, $pdfContent, $filename);
         } catch (\Exception $e) {
             Log::error('Resend API Exception', [
                 'error' => $e->getMessage(),
             ]);
 
-            return [
-                'success' => false,
-                'message' => "Error saat mengirim email: {$e->getMessage()}",
-            ];
+            return $this->sendWithLaravelMailer($toEmail, $subject, $htmlBody, $pdfContent, $filename);
         }
+    }
+
+    /**
+     * Kirim email melalui driver Laravel mail (SMTP/sendmail) sebagai fallback.
+     */
+    private function sendWithLaravelMailer(string $toEmail, string $subject, string $htmlBody, string $pdfContent, string $filename): array
+    {
+        $fromEmail = config('mail.from.address') ?: config('services.resend.from_email', 'onboarding@resend.dev');
+        $fromName  = config('mail.from.name') ?: 'Sistem Ticketing Laboran';
+        $mailer    = $this->resolveMailer();
+
+        try {
+            Mail::mailer($mailer)->html($htmlBody, function (Message $message) use ($toEmail, $subject, $fromEmail, $fromName, $pdfContent, $filename): void {
+                $message->to($toEmail)
+                    ->subject($subject)
+                    ->from($fromEmail, $fromName);
+
+                $message->attachData($pdfContent, $filename, ['mime' => 'application/pdf']);
+            });
+
+            return [
+                'success' => true,
+                'message' => "Laporan berhasil dibuat dan dikirim ke email {$toEmail}",
+            ];
+        } catch (\Throwable $e) {
+            Log::warning('Laravel mailer fallback gagal, mencoba transport sendmail', [
+                'mailer' => $mailer,
+                'error' => $e->getMessage(),
+            ]);
+
+            try {
+                Mail::mailer('sendmail')->html($htmlBody, function (Message $message) use ($toEmail, $subject, $fromEmail, $fromName, $pdfContent, $filename): void {
+                    $message->to($toEmail)
+                        ->subject($subject)
+                        ->from($fromEmail, $fromName);
+
+                    $message->attachData($pdfContent, $filename, ['mime' => 'application/pdf']);
+                });
+
+                return [
+                    'success' => true,
+                    'message' => "Laporan berhasil dibuat dan dikirim ke email {$toEmail}",
+                ];
+            } catch (\Throwable $fallbackError) {
+                Log::error('SMTP fallback gagal', ['error' => $fallbackError->getMessage()]);
+
+                return [
+                    'success' => false,
+                    'message' => "Error saat mengirim email: {$fallbackError->getMessage()}",
+                ];
+            }
+        }
+    }
+
+    /**
+     * Tentukan mailer yang paling aman untuk hosting.
+     */
+    private function resolveMailer(): string
+    {
+        $mailer = config('mail.default') ?: env('MAIL_MAILER', 'sendmail');
+
+        if (empty($mailer) || in_array($mailer, ['log', 'array', 'null'], true)) {
+            return 'sendmail';
+        }
+
+        return $mailer;
     }
 
     /**
@@ -160,19 +217,12 @@ class EmailService
     {
         $apiKey    = config('services.resend.key');
         $fromEmail = config('services.resend.from_email', 'onboarding@resend.dev');
-        $toEmail   = config('services.resend.receiver_email');
-
-        if (empty($apiKey)) {
-            return [
-                'success' => false,
-                'message' => 'Resend API Key belum dikonfigurasi.',
-            ];
-        }
+        $toEmail   = config('services.resend.receiver_email') ?: config('mail.from.address');
 
         if (empty($toEmail)) {
             return [
                 'success' => false,
-                'message' => 'Email tujuan (CONTACT_RECEIVER_EMAIL) belum dikonfigurasi.',
+                'message' => 'Email tujuan (CONTACT_RECEIVER_EMAIL atau MAIL_FROM_ADDRESS) belum dikonfigurasi.',
             ];
         }
 
@@ -180,49 +230,45 @@ class EmailService
         $htmlBody = $this->buildRekapTeknisiEmailHtml($meta);
 
         try {
-            $response = Http::withToken($apiKey)
-                ->timeout(30)
-                ->post('https://api.resend.com/emails', [
-                    'from'        => "Sistem Ticketing Laboran <{$fromEmail}>",
-                    'to'          => [$toEmail],
-                    'subject'     => $subject,
-                    'html'        => $htmlBody,
-                    'attachments' => [
-                        [
-                            'filename' => $filename,
-                            'content'  => base64_encode($pdfContent),
+            if (!empty($apiKey)) {
+                $response = Http::withToken($apiKey)
+                    ->timeout(30)
+                    ->post('https://api.resend.com/emails', [
+                        'from'        => "Sistem Ticketing Laboran <{$fromEmail}>",
+                        'to'          => [$toEmail],
+                        'subject'     => $subject,
+                        'html'        => $htmlBody,
+                        'attachments' => [
+                            [
+                                'filename' => $filename,
+                                'content'  => base64_encode($pdfContent),
+                            ],
                         ],
-                    ],
-                ]);
+                    ]);
 
-            if ($response->successful()) {
-                return [
-                    'success' => true,
-                    'message' => "Laporan berhasil dikirim ke email {$toEmail}",
-                ];
+                if ($response->successful()) {
+                    return [
+                        'success' => true,
+                        'message' => "Laporan berhasil dikirim ke email {$toEmail}",
+                    ];
+                }
+
+                $errorBody = $response->json();
+                $errorMsg  = $errorBody['message'] ?? $response->body();
+
+                Log::warning('Resend API gagal (Rekap Teknisi), mencoba fallback SMTP', [
+                    'status' => $response->status(),
+                    'body'   => $errorBody,
+                ]);
             }
 
-            $errorBody = $response->json();
-            $errorMsg  = $errorBody['message'] ?? $response->body();
-
-            Log::error('Resend API Error (Rekap Teknisi)', [
-                'status' => $response->status(),
-                'body'   => $errorBody,
-            ]);
-
-            return [
-                'success' => false,
-                'message' => "Gagal mengirim email: {$errorMsg}",
-            ];
+            return $this->sendWithLaravelMailer($toEmail, $subject, $htmlBody, $pdfContent, $filename);
         } catch (\Exception $e) {
             Log::error('Resend API Exception (Rekap Teknisi)', [
                 'error' => $e->getMessage(),
             ]);
 
-            return [
-                'success' => false,
-                'message' => "Error saat mengirim email: {$e->getMessage()}",
-            ];
+            return $this->sendWithLaravelMailer($toEmail, $subject, $htmlBody, $pdfContent, $filename);
         }
     }
 

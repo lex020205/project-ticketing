@@ -8,6 +8,7 @@ use App\Services\PdfService;
 use App\Services\ReportService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Mockery;
 use Tests\TestCase;
 
@@ -25,6 +26,23 @@ class ReportExportRouteTest extends TestCase
         $response = $this->post(route('super-admin.laporan.export.rekap'));
 
         $response->assertRedirect('/login');
+    }
+
+    public function test_send_report_email_falls_back_to_laravel_mailer_when_resend_is_missing(): void
+    {
+        config()->set('services.resend.key', null);
+        config()->set('services.resend.receiver_email', 'recipient@example.com');
+        config()->set('mail.default', 'log');
+        config()->set('mail.from.address', 'from@example.com');
+        config()->set('mail.from.name', 'Test Sender');
+
+        Mail::fake();
+
+        $service = new EmailService();
+        $result = $service->sendReportEmail('%PDF-1.4', 'laporan.pdf', ['total_data' => 2]);
+
+        $this->assertTrue($result['success']);
+        $this->assertStringContainsString('recipient@example.com', $result['message']);
     }
 
     public function test_export_rekap_returns_success_when_email_fails(): void
