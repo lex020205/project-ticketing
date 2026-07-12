@@ -38,7 +38,6 @@
         <div class="page-hero">
             <span class="page-kicker"><i class="bi bi-speedometer2"></i> Dashboard Admin</span>
             <h1 class="page-title">Kelola keluhan masuk, ticket, dan verifikasi pekerjaan.</h1>
-            <p class="page-subtitle">Tampilan ini dirapikan agar mengikuti pola visual yang sama dengan dashboard lain: tenang, konsisten, dan mudah dipindai.</p>
         </div>
 
     <div class="row g-4 mb-4">
