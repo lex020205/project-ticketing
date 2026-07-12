@@ -24,6 +24,7 @@
                             <th>Teknisi</th>
                             <th>Status</th>
                             <th>Tanggal</th>
+                            <th class="text-end">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,6 +36,9 @@
                             <td>{{ $ticket->teknisi?->name }}</td>
                             <td><span class="badge bg-light text-dark border">{{ $ticket->status_ticket }}</span></td>
                             <td>{{ $ticket->created_at?->format('Y-m-d') }}</td>
+                            <td class="text-end">
+                                <a href="{{ route('super-admin.tickets.show', $ticket) }}" class="btn btn-sm btn-outline-primary">Detail</a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

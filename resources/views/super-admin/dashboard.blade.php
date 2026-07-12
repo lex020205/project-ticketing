@@ -478,7 +478,7 @@
                                         <td>{{ $ticket->created_at?->format('d M Y') ?? '-' }}</td>
                                         <td class="text-end">
                                             <div class="d-inline-flex flex-wrap justify-content-end gap-2">
-                                                <a href="{{ url('/admin/tickets/'.$ticket->id) }}" class="btn-soft btn-soft-primary btn btn-sm">Detail</a>
+                                                <a href="{{ route('super-admin.tickets.show', $ticket) }}" class="btn-soft btn-soft-primary btn btn-sm">Detail</a>
                                                 <a href="#" class="btn-soft btn-soft-warning btn btn-sm">Edit</a>
                                                 <a href="#" class="btn-soft btn-soft-danger btn btn-sm">Hapus</a>
                                             </div>

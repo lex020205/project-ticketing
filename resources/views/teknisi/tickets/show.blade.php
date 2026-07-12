@@ -325,7 +325,7 @@
                         @php
                             $extension = strtolower(pathinfo($lampiran->nama_file, PATHINFO_EXTENSION));
                             $isImage = in_array($extension, ['jpg', 'jpeg', 'png'], true);
-                            $fileUrl = \Illuminate\Support\Facades\Storage::url($lampiran->path_file);
+                            $fileUrl = route('ticket-lampiran.show', $lampiran);
                         @endphp
                         <tr>
                             <td class="ps-4">
@@ -359,7 +359,7 @@
                     @php
                         $extension = strtolower(pathinfo($lampiran->nama_file, PATHINFO_EXTENSION));
                         $isImage = in_array($extension, ['jpg', 'jpeg', 'png'], true);
-                        $fileUrl = \Illuminate\Support\Facades\Storage::url($lampiran->path_file);
+                        $fileUrl = route('ticket-lampiran.show', $lampiran);
                     @endphp
                     <div class="list-group-item px-0 py-3 border-bottom">
                         <div class="d-flex gap-3 align-items-center">

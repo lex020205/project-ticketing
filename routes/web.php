@@ -22,6 +22,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TicketLampiranController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -63,6 +64,10 @@ Route::get('/profile', [ProfileController::class, 'show'])
     ->middleware('auth')
     ->name('profile.show');
 
+Route::get('/ticket-lampiran/{lampiran}', [TicketLampiranController::class, 'show'])
+    ->middleware('auth')
+    ->name('ticket-lampiran.show');
+
 // Modul 1 - Auth, Role Access, dan Dashboard Awal
 // Ringkas: redirect dashboard sesuai role.
 // General dashboard redirect based on role
@@ -80,6 +85,7 @@ Route::middleware(['auth', 'checkRole:Super Admin'])
     ->name('super-admin.')
     ->group(function () {
         Route::get('/tickets', [\App\Http\Controllers\SuperAdmin\TicketController::class, 'index'])->name('tickets.index');
+        Route::get('/tickets/{ticket}', [\App\Http\Controllers\SuperAdmin\TicketController::class, 'show'])->name('tickets.show');
         Route::get('/roles', [\App\Http\Controllers\SuperAdmin\RoleController::class, 'index'])->name('roles.index');
         Route::get('/audit', [\App\Http\Controllers\SuperAdmin\AuditController::class, 'index'])->name('audit.index');
         Route::get('/settings', [\App\Http\Controllers\SuperAdmin\SettingsController::class, 'index'])->name('settings.index');
