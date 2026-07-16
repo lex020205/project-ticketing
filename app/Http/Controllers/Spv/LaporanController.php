@@ -124,26 +124,27 @@ class LaporanController extends Controller
     private function applyFilters(Builder $query, Request $request): void
     {
         $query->when($request->filled('status_ticket'), function ($builder) use ($request) {
-            $builder->where('status_ticket', $request->status_ticket);
+            $builder->where('tickets.status_ticket', $request->status_ticket);
         });
 
         $query->when($request->filled('prioritas'), function ($builder) use ($request) {
-            $builder->where('prioritas', $request->prioritas);
+            $builder->where('tickets.prioritas', $request->prioritas);
         });
 
         $query->when($request->filled('kategori_id'), function ($builder) use ($request) {
-            $builder->where('kategori_id', $request->kategori_id);
+            $builder->where('tickets.kategori_id', $request->kategori_id);
         });
 
         $query->when($request->filled('teknisi_id'), function ($builder) use ($request) {
-            $builder->where('teknisi_id', $request->teknisi_id);
+            $builder->where('tickets.teknisi_id', $request->teknisi_id);
         });
 
         if ($request->filled('tanggal_awal') && $request->filled('tanggal_akhir')) {
             $tanggalAwal = Carbon::parse($request->tanggal_awal)->startOfDay();
             $tanggalAkhir = Carbon::parse($request->tanggal_akhir)->endOfDay();
 
-            $query->whereBetween('created_at', [$tanggalAwal, $tanggalAkhir]);
+            // Query rekap melakukan join, jadi kolom perlu diberi nama tabel.
+            $query->whereBetween('tickets.created_at', [$tanggalAwal, $tanggalAkhir]);
         }
     }
 }

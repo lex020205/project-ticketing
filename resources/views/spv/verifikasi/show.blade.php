@@ -117,7 +117,7 @@
             <table class="table table-striped align-middle">
                 <thead class="table-light">
                     <tr>
-                        <th>Preview</th>
+                        <th>Jenis File</th>
                         <th>Nama File</th>
                         <th>Keterangan</th>
                         <th>Uploader</th>
@@ -135,7 +135,7 @@
                         <tr>
                             <td>
                                 @if ($isImage)
-                                    <img src="{{ $fileUrl }}" alt="{{ $lampiran->nama_file }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                    <span class="badge bg-info text-dark">Gambar</span>
                                 @else
                                     <span class="badge bg-secondary">PDF</span>
                                 @endif
@@ -145,7 +145,9 @@
                             <td>{{ $lampiran->uploader?->name ?? '-' }}</td>
                             <td>{{ $lampiran->created_at?->format('d-m-Y H:i') ?? '-' }}</td>
                             <td class="text-end">
-                                <a href="{{ $fileUrl }}" class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener">Lihat</a>
+                                <a href="{{ $fileUrl }}" class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener">
+                                    <i class="bi bi-eye me-1"></i>{{ $isImage ? 'Lihat Gambar' : 'Lihat Lampiran' }}
+                                </a>
                             </td>
                         </tr>
                     @empty
